@@ -34,8 +34,10 @@
   "dependencies": {
     "@studio-freight/lenis": "^1.0.42",
     "gsap": "^3.12.5",
+    "lil-gui": "^0.20.0",
     "punycode": "^2.3.1",
     "split-type": "^0.3.4",
-    "swiper": "^11.1.14"
+    "swiper": "^11.1.14",
+    "three": "^0.170.0"
   }
 }

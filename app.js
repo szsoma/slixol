@@ -23,6 +23,9 @@ nav();
 import footer from "./src/global/footer";
 footer();
 
+import addAnimation from "./src/global/main";
+addAnimation();
+
 // Import page-specific scripts
 import home from "./src/pages/home/home";
 import about from "./src/pages/about/about";
