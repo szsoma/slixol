@@ -33,7 +33,7 @@ const vec3 color5 = vec3(0.00,0.05,0.00);  // dark green
 
 void main() {
   vec2 seed = v_uv * 1.5 * (u_mouse + 0.4 * (length(u_mouse) + 0.54));
-  float n = cnoise21(seed) + length(u_mouse) * 1.3;
+  float n = cnoise21(seed) + length(u_mouse) * 1.1;
 
   float ml = pow(length(u_mouse), 3.5) * 1.15;
   float n1 = smoothstep(1.0, 0.5 + 0.3, n);
