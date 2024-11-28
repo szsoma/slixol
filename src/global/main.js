@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import { createBackground } from "./background.js";
-import { createTCanvas } from "./TCanvas.js";
 
 
 function addAnimation() {

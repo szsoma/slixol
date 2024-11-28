@@ -1,49 +1,36 @@
 import * as THREE from "three";
 import { cnoise21 } from "./modules/noise";
+import { enVertexShader } from "./modules/shader";
 
 export function createBackground(scene) {
-  
   // Uniforms
   const uniforms = {
     u_time: { value: 0 },
-    u_mouse: { value: new THREE.Vector2() },
+    u_mouse: { value: new THREE.Vector2(0, 0) }, // Initialize at (0, 0)
+    u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
   };
-
-  // Vertex Shader
-  const vertexShader = `
-    varying vec2 v_uv;
-
-    void main() {
-      v_uv = uv;
-      gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-    }
-  `;
 
   // Fragment Shader
   const fragmentShader = `
     uniform float u_time;
     uniform vec2 u_mouse;
+    uniform vec2 u_resolution;
     varying vec2 v_uv;
 
     ${cnoise21}
 
     float random(vec2 p) {
-      vec2 k1 = vec2(
-        33.14069263277926,
-        5.665144142690225
-      );
-      return fract(
-        cos(dot(p, k1)) * 12345.6789
-      );
+      vec2 k1 = vec2(33.14069263277926, 5.665144142690225);
+      return fract(cos(dot(p, k1)) * 12345.6789);
     }
 
     const vec3 black = vec3(0.0);
-    const vec3 color1 = vec3(0.047, 0.259, 0.181);  // #0c422e
-    const vec3 color2 = vec3(0.108, 0.969, 0.541);  // #1bf78a
-    const vec3 color3 = vec3(0.147, 0.24, 0.281);   
+    const vec3 color1 = vec3(0.00,0.48,0.21);  // darker-green
+    const vec3 color2 = vec3(0.100, 0.969, 0.5);  // light-green
+    const vec3 color3 = vec3(0.15, 0.24, 0.29);   // dark
 
     void main() {
-      vec2 seed = v_uv * 1.3 * (u_mouse + 0.3 * (length(u_mouse) + 0.5));
+      vec2 seed = v_uv * 1.5 * (u_mouse + 0.3 * (length(u_mouse) + 0.5));
       float n = cnoise21(seed) + length(u_mouse) * 0.9;
 
       float ml = pow(length(u_mouse), 3.5) * 1.15;
@@ -73,7 +60,7 @@ export function createBackground(scene) {
   // Shader material
   const material = new THREE.ShaderMaterial({
     uniforms: uniforms,
-    vertexShader: vertexShader,
+    vertexShader: enVertexShader, // Using the enVertexShader
     fragmentShader: fragmentShader,
   });
 
@@ -81,18 +68,27 @@ export function createBackground(scene) {
   const plane = new THREE.Mesh(geometry, material);
   scene.add(plane);
 
-  // Mouse tracking
-  const mouseSpeed = 0.15; // Adjust this value to slow down the movement
-  const mouse = new THREE.Vector2();
+  // Mouse tracking with lerp effect
+  const lerpFactor = 0.03; // Adjust this value to change the smoothness
+  const targetMouse = new THREE.Vector2(0, 0); // Target position
+  const currentMouse = uniforms.u_mouse.value; // Current smoothed position
+
   window.addEventListener("mousemove", (event) => {
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    uniforms.u_mouse.value.lerp(mouse, mouseSpeed);
+    // Normalize mouse position to [-1, 1]
+    targetMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    targetMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
   });
 
   // Update function
   function update() {
     uniforms.u_time.value += 0.005;
+
+    // Smoothly interpolate current mouse position toward target
+    currentMouse.x += (targetMouse.x - currentMouse.x) * lerpFactor;
+    currentMouse.y += (targetMouse.y - currentMouse.y) * lerpFactor;
+
+    // Update resolution (handles window resizing)
+    uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
   }
 
   return update;

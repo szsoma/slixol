@@ -1,10 +1,9 @@
-import gsap from 'gsap'   // [import GSAP have to import in the function's js file]
-import ScrollTrigger from 'gsap/ScrollTrigger'  // [import GSAP have to import in the function's js file]
+// Import home scripts
+import logoproof from "./logoproof";
 
-function home()
+export default function home()
 {
-    // console.log(gsap);   // -- Check if it is okay
+    logoproof();
+    console.log("hello home");   // -- Check if it is okay
     // console.log(ScrollTrigger)   // -- Check if it is okay
 }
-
-export default home
