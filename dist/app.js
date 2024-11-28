@@ -41119,47 +41119,52 @@ function createBackground(scene) {
     };
     // Fragment Shader
     const fragmentShader = `
-    uniform float u_time;
-    uniform vec2 u_mouse;
-    uniform vec2 u_resolution;
-    varying vec2 v_uv;
+uniform float u_time;
+uniform vec2 u_mouse;
+uniform vec2 u_resolution;
+varying vec2 v_uv;
 
-    ${(0, _noise.cnoise21)}
+${(0, _noise.cnoise21)}
 
-    float random(vec2 p) {
-      vec2 k1 = vec2(33.14069263277926, 5.665144142690225);
-      return fract(cos(dot(p, k1)) * 12345.6789);
-    }
+float random(vec2 p) {
+  vec2 k1 = vec2(33.14069263277926, 5.665144142690225);
+  return fract(cos(dot(p, k1)) * 12345.6789);
+}
 
-    const vec3 black = vec3(0.0);
-    const vec3 color1 = vec3(0.00,0.48,0.21);  // darker-green
-    const vec3 color2 = vec3(0.100, 0.969, 0.5);  // light-green
-    const vec3 color3 = vec3(0.15, 0.24, 0.29);   // dark
+const vec3 black = vec3(0.0);
+const vec3 color1 = vec3(0.00, 0.48, 0.21);  // darker-green
+const vec3 color2 = vec3(0.100, 0.969, 0.5);  // light-green
+const vec3 color3 = vec3(0.15, 0.24, 0.29);  // dark
+const vec3 color4 = vec3(0.14,0.41,0.20);  // green pastel
+const vec3 color5 = vec3(0.00,0.05,0.00);  // dark green
 
-    void main() {
-      vec2 seed = v_uv * 1.5 * (u_mouse + 0.3 * (length(u_mouse) + 0.5));
-      float n = cnoise21(seed) + length(u_mouse) * 0.9;
+void main() {
+  vec2 seed = v_uv * 1.5 * (u_mouse + 0.4 * (length(u_mouse) + 0.54));
+  float n = cnoise21(seed) + length(u_mouse) * 1.3;
 
-      float ml = pow(length(u_mouse), 3.5) * 1.15;
-      float n1 = smoothstep(1.0, 0.5 + 0.3, n);
-      vec3 color = mix(black, color1, n1);
-      
-      float n2 = smoothstep(0.0 + ml, 0.1 + ml + 0.2, n);
-      color = mix(color, color2, n2);
+  float ml = pow(length(u_mouse), 3.5) * 1.15;
+  float n1 = smoothstep(1.0, 0.5 + 0.3, n);
+  vec3 color = mix(black, color1, n1);
+  
+  float n2 = smoothstep(0.0 + ml, 0.1 + ml + 0.2, n);
+  color = mix(color, color2, n2);
 
-      float n3 = smoothstep(0.2 + ml, 0.2 + ml + 0.2, n);
-      color = mix(color, color3, n3);
+  float n3 = smoothstep(0.25 + ml, 0.2 + ml + 0.2, n);
+  color = mix(color, color3, n3);
 
-      float n4 = smoothstep(0.3 + ml, 0.2 + ml + 0.2, n);
-      color = mix(color, black, n4);
+  float n4 = smoothstep(0.3 + ml, 0.2 + ml + 0.2, n);
+  color = mix(color, color4, n4);
 
-      vec2 uvrandom = v_uv;
-      uvrandom.y *= random(vec2(uvrandom.y, 0.4));
-      color.rgb += random(uvrandom) * 0.05;
+  float n5 = smoothstep(0.2 + ml, 0.3 + ml + 0.2, n);
+  color = mix(color, color5, n5);
 
-      gl_FragColor = vec4(color, 1.0);
-    }
-  `;
+  vec2 uvrandom = v_uv;
+  uvrandom.y *= random(vec2(uvrandom.y, 0.5));
+  color.rgb += random(uvrandom) * 0.05;
+
+  gl_FragColor = vec4(color, 1.0);
+}
+`;
     // Plane geometry
     const geometry = new _three.PlaneGeometry(2, 2);
     // Shader material
@@ -41240,77 +41245,41 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "enVertexShader", ()=>enVertexShader);
 parcelHelpers.export(exports, "enFragmentShader", ()=>enFragmentShader);
-parcelHelpers.export(exports, "jpVertexShader", ()=>jpVertexShader);
-parcelHelpers.export(exports, "jpFragmentShader", ()=>jpFragmentShader);
 const enVertexShader = `
- varying vec2 v_uv;
- 
- void main() {
- v_uv = uv;
- gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
- }
+varying vec2 v_uv;
+
+void main() {
+    v_uv = uv;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}
  `;
 const enFragmentShader = `
- uniform sampler2D u_texture;
- uniform vec2 u_mouse;
- uniform float u_aspect;
- uniform bool u_enable;
- varying vec2 v_uv;
- 
- void main() {
- vec4 tex = texture2D(u_texture, v_uv);
- 
- vec2 aspect = vec2(u_aspect, 1.0);
- float radius = 0.19;
- float dist = distance(u_mouse * aspect, v_uv * aspect);
- float d = 1.0 - smoothstep(radius, radius + 0.005, dist);
- 
- if (u_enable) {
- tex.a = mix(tex.a, 0.0, d);
- }
- 
- gl_FragColor = tex;
- }
- `;
-const jpVertexShader = `
- varying vec2 v_uv;
- 
- void main() {
- v_uv = uv;
- gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
- }
- `;
-const jpFragmentShader = `
- uniform sampler2D u_texture;
- uniform vec2 u_mouse;
- uniform float u_aspect;
- uniform bool u_enable;
- varying vec2 v_uv;
- 
- void main() {
- vec2 aspect = vec2(u_aspect, 1.0);
- float radius = 0.19;
- float dist = distance(u_mouse * aspect, v_uv * aspect);
- float d = smoothstep(radius, radius + 0.005, dist);
- 
- vec2 sub = u_mouse - v_uv;
- sub *= aspect;
- 
- vec2 uv = v_uv - sub * pow(dist * 0.7, 0.7);
- vec4 tex_r = texture2D(u_texture, uv);
- vec4 tex_g = texture2D(u_texture, uv + sub * 0.03);
- vec4 tex_b = texture2D(u_texture, uv + sub * 0.01);
- float a = max(max(tex_r.a, tex_g.a), tex_b.a);
- vec4 tex = vec4(tex_r.r, tex_g.g, tex_b.b, a);
- 
- tex.a = mix(tex.a, 0.0, d);
- 
- if (!u_enable) {
- tex.a = 0.0;
- }
- 
- gl_FragColor = tex;
- }
+uniform sampler2D u_texture;
+uniform vec2 u_mouse;
+uniform float u_aspect;
+uniform bool u_enable;
+uniform float u_time; // Add time for glowing effect
+varying vec2 v_uv;
+
+void main() {
+    vec4 tex = texture2D(u_texture, v_uv);
+
+    vec2 aspect = vec2(u_aspect, 1.0);
+    float radius = 0.2; // Fixed radius for glow
+    float dist = distance(u_mouse * aspect, v_uv * aspect);
+
+    // Glow intensity decreases with distance
+    float glow = 0.3 / (dist * dist + 0.1); // Glow intensity
+    glow *= sin(u_time * 3.0) * 0.5 + 0.5; // Add subtle pulsing
+
+    if (u_enable) {
+        tex.a = mix(tex.a, 0.0, smoothstep(radius, radius + 0.01, dist)); // Fade alpha near the mouse
+    }
+
+    tex.rgb += glow * vec3(0.2, 0.9, 0.3); // Add greenish glow
+    gl_FragColor = tex;
+}
+
  `;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["lwskx","igcvL"], "igcvL", "parcelRequire94c2")

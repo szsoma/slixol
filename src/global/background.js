@@ -11,49 +11,53 @@ export function createBackground(scene) {
   };
 
   // Fragment Shader
-  const fragmentShader = `
-    uniform float u_time;
-    uniform vec2 u_mouse;
-    uniform vec2 u_resolution;
-    varying vec2 v_uv;
+const fragmentShader = `
+uniform float u_time;
+uniform vec2 u_mouse;
+uniform vec2 u_resolution;
+varying vec2 v_uv;
 
-    ${cnoise21}
+${cnoise21}
 
-    float random(vec2 p) {
-      vec2 k1 = vec2(33.14069263277926, 5.665144142690225);
-      return fract(cos(dot(p, k1)) * 12345.6789);
-    }
+float random(vec2 p) {
+  vec2 k1 = vec2(33.14069263277926, 5.665144142690225);
+  return fract(cos(dot(p, k1)) * 12345.6789);
+}
 
-    const vec3 black = vec3(0.0);
-    const vec3 color1 = vec3(0.00,0.48,0.21);  // darker-green
-    const vec3 color2 = vec3(0.100, 0.969, 0.5);  // light-green
-    const vec3 color3 = vec3(0.15, 0.24, 0.29);   // dark
+const vec3 black = vec3(0.0);
+const vec3 color1 = vec3(0.00, 0.48, 0.21);  // darker-green
+const vec3 color2 = vec3(0.100, 0.969, 0.5);  // light-green
+const vec3 color3 = vec3(0.15, 0.24, 0.29);  // dark
+const vec3 color4 = vec3(0.14,0.41,0.20);  // green pastel
+const vec3 color5 = vec3(0.00,0.05,0.00);  // dark green
 
-    void main() {
-      vec2 seed = v_uv * 1.5 * (u_mouse + 0.3 * (length(u_mouse) + 0.5));
-      float n = cnoise21(seed) + length(u_mouse) * 0.9;
+void main() {
+  vec2 seed = v_uv * 1.5 * (u_mouse + 0.4 * (length(u_mouse) + 0.54));
+  float n = cnoise21(seed) + length(u_mouse) * 1.3;
 
-      float ml = pow(length(u_mouse), 3.5) * 1.15;
-      float n1 = smoothstep(1.0, 0.5 + 0.3, n);
-      vec3 color = mix(black, color1, n1);
-      
-      float n2 = smoothstep(0.0 + ml, 0.1 + ml + 0.2, n);
-      color = mix(color, color2, n2);
+  float ml = pow(length(u_mouse), 3.5) * 1.15;
+  float n1 = smoothstep(1.0, 0.5 + 0.3, n);
+  vec3 color = mix(black, color1, n1);
+  
+  float n2 = smoothstep(0.0 + ml, 0.1 + ml + 0.2, n);
+  color = mix(color, color2, n2);
 
-      float n3 = smoothstep(0.2 + ml, 0.2 + ml + 0.2, n);
-      color = mix(color, color3, n3);
+  float n3 = smoothstep(0.25 + ml, 0.2 + ml + 0.2, n);
+  color = mix(color, color3, n3);
 
-      float n4 = smoothstep(0.3 + ml, 0.2 + ml + 0.2, n);
-      color = mix(color, black, n4);
+  float n4 = smoothstep(0.3 + ml, 0.2 + ml + 0.2, n);
+  color = mix(color, color4, n4);
 
-      vec2 uvrandom = v_uv;
-      uvrandom.y *= random(vec2(uvrandom.y, 0.4));
-      color.rgb += random(uvrandom) * 0.05;
+  float n5 = smoothstep(0.2 + ml, 0.3 + ml + 0.2, n);
+  color = mix(color, color5, n5);
 
-      gl_FragColor = vec4(color, 1.0);
-    }
-  `;
+  vec2 uvrandom = v_uv;
+  uvrandom.y *= random(vec2(uvrandom.y, 0.5));
+  color.rgb += random(uvrandom) * 0.05;
 
+  gl_FragColor = vec4(color, 1.0);
+}
+`;
   // Plane geometry
   const geometry = new THREE.PlaneGeometry(2, 2);
 
