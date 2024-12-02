@@ -9246,9 +9246,9 @@ function addAnimation() {
     function onResize() {
         // Update the size of the renderer
         renderer.setSize(container.offsetWidth, container.offsetHeight);
-        // Update the camera aspect ratio and projection matrix
-        camera.left = -container.offsetWidth / container.offsetHeight;
-        camera.right = container.offsetWidth / container.offsetHeight;
+        // Calculate the aspect ratio
+        const aspectRatio = container.offsetWidth / container.offsetHeight;
+        // Update the projection matrix
         camera.updateProjectionMatrix();
     }
     // Add event listener for window resize

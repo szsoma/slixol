@@ -64,7 +64,7 @@ void main() {
   // Shader material
   const material = new THREE.ShaderMaterial({
     uniforms: uniforms,
-    vertexShader: enVertexShader, // Using the enVertexShader
+    vertexShader: enVertexShader,
     fragmentShader: fragmentShader,
   });
 
