@@ -33,36 +33,35 @@ import work from "./src/pages/work/work";
 import services from "./src/pages/services/services";
 import career from "./src/pages/career/career";
 
-// Function to initialize page-specific scripts
-const initializePageScripts = () => {
-  const pages = [
-    { className: 'body--home', initFunction: home },
-    { className: 'body--about', initFunction: about },
-    { className: 'body--work', initFunction: work },
-    { className: 'body--services', initFunction: services },
-    { className: 'body--career', initFunction: career },
-  ];
+  // Function to initialize page-specific scripts
+  const initializePageScripts = () => {
+    const pages = [
+      { className: 'body--home', initFunction: home },
+      { className: 'body--about', initFunction: about },
+      { className: 'body--work', initFunction: work },
+      { className: 'body--services', initFunction: services },
+      { className: 'body--career', initFunction: career },
+    ];
 
-  const body = document.querySelector('body');
+    const body = document.querySelector('body');
 
-  if (!body) {
-    console.error("Error: <body> element not found in the DOM.");
-    return;
-  }
-
-  pages.forEach(page => {
-    if (body.classList.contains(page.className)) {
-      try {
-        page.initFunction();
-      } catch (error) {
-        console.error(`Error initializing script for ${page.className}:`, error);
-      }
+    if (!body) {
+      console.error("Error: <body> element not found in the DOM.");
+      return;
     }
-  });
-};
 
-initializePageScripts();
+    pages.forEach(page => {
+      if (body.classList.contains(page.className)) {
+        try {
+          page.initFunction();
+        } catch (error) {
+          console.error(`Error initializing script for ${page.className}:`, error);
+        }
+      }
+    });
+  };
 
+  initializePageScripts();
 
 // TODO: Import and register GSAP plugins in the relevant function files
 // import { ScrollTrigger } from 'gsap/ScrollTrigger';

@@ -669,8 +669,10 @@ var _lenis = require("@studio-freight/lenis"); // TODO Add lenis smooth scrollin
 var _lenisDefault = parcelHelpers.interopDefault(_lenis);
 // Lenis SmoothScroll
 function initLenis() {
-    "use strict"; // fix lenis in safari
-    if (Webflow.env("editor") === undefined) {
+    "use strict"; // fix lenis in Safari
+    // Add a fallback for Webflow
+    const isEditor = typeof Webflow !== "undefined" && Webflow.env("editor") === true;
+    if (!isEditor) {
         const lenis = new (0, _lenisDefault.default)({
             lerp: 0.1,
             wheelMultiplier: 1,
@@ -1106,13 +1108,18 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>home);
 var _logoproof = require("./logoproof");
 var _logoproofDefault = parcelHelpers.interopDefault(_logoproof);
+var _bentoInteraction = require("./bentoInteraction");
+var _bentoInteractionDefault = parcelHelpers.interopDefault(_bentoInteraction);
 function home() {
     (0, _logoproofDefault.default)();
+    document.addEventListener("DOMContentLoaded", ()=>{
+        (0, _bentoInteractionDefault.default)();
+    });
     console.log("hello home"); // -- Check if it is okay
 // console.log(ScrollTrigger)   // -- Check if it is okay
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./logoproof":"lJs2Z"}],"lJs2Z":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./logoproof":"lJs2Z","./bentoInteraction":"4kS9K"}],"lJs2Z":[function(require,module,exports,__globalThis) {
 // import Swiper bundle with all modules installed
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -9200,72 +9207,73 @@ function EffectCards(_ref) {
     });
 }
 
-},{"../shared/create-shadow.mjs":"bWkQq","../shared/effect-init.mjs":"88TTi","../shared/effect-target.mjs":"3jkAD","../shared/effect-virtual-transition-end.mjs":"dzFvU","../shared/utils.mjs":"9mU7V","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aErfw":[function() {},{}],"fL9gf":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-function about() {}
-exports.default = about;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9nfro":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-function work() {}
-exports.default = work;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gjwHc":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-function services() {}
-exports.default = services;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"erAwr":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-function career() {}
-exports.default = career;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bPqYi":[function(require,module,exports,__globalThis) {
+},{"../shared/create-shadow.mjs":"bWkQq","../shared/effect-init.mjs":"88TTi","../shared/effect-target.mjs":"3jkAD","../shared/effect-virtual-transition-end.mjs":"dzFvU","../shared/utils.mjs":"9mU7V","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aErfw":[function() {},{}],"4kS9K":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _three = require("three");
-var _backgroundJs = require("./background.js");
-function addAnimation() {
-    const container = document.querySelector(".canvas_wrap");
+var _background = require("../../global/background");
+function addUnifiedAnimation() {
+    // Ensure parentContainer is a valid DOM element
+    const parentContainer = document.querySelector("body"); // Use a specific container if needed, e.g., `.layout-container`
+    if (!parentContainer) {
+        console.error("Error: Parent container not found.");
+        return;
+    }
+    const containers = document.querySelectorAll(".canvas_wrap");
     const scene = new _three.Scene();
     // Renderer
-    const renderer = new _three.WebGLRenderer();
-    renderer.setSize(container.offsetWidth, container.offsetHeight);
+    const renderer = new _three.WebGLRenderer({
+        alpha: true
+    }); // Transparent background
+    renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
-    container.appendChild(renderer.domElement);
+    // Append the renderer canvas to the parent container
+    parentContainer.appendChild(renderer.domElement);
     // Camera
     const camera = new _three.OrthographicCamera(-1, 1, 1, -1, -10, 10);
     camera.position.z = 1;
-    // Add background
-    const updateBackground = (0, _backgroundJs.createBackground)(scene);
-    // Resize function
+    // Add background shader
+    const updateBackground = (0, _background.createBackground)(scene);
+    // Resize the renderer and camera when the window resizes
     function onResize() {
-        // Update the size of the renderer
-        renderer.setSize(container.offsetWidth, container.offsetHeight);
-        // Calculate the aspect ratio
-        const aspectRatio = container.offsetWidth / container.offsetHeight;
-        // Update the projection matrix
+        renderer.setSize(window.innerWidth, window.innerHeight);
         camera.updateProjectionMatrix();
     }
-    // Add event listener for window resize
-    window.addEventListener('resize', onResize);
+    window.addEventListener("resize", onResize);
+    // Sync the canvas position with `.canvas_wrap` elements
+    function updateMasks() {
+        containers.forEach((container)=>{
+            const rect = container.getBoundingClientRect();
+            // Calculate clip-path in viewport coordinates
+            const x = rect.left / window.innerWidth;
+            const y = rect.top / window.innerHeight;
+            const width = rect.width / window.innerWidth;
+            const height = rect.height / window.innerHeight;
+            // Apply masking using CSS clip-path
+            container.style.clipPath = `polygon(
+          ${x * 100}% ${y * 100}%, 
+          ${(x + width) * 100}% ${y * 100}%, 
+          ${(x + width) * 100}% ${(y + height) * 100}%, 
+          ${x * 100}% ${(y + height) * 100}%
+        )`;
+        });
+    }
+    // Initial mask setup
+    updateMasks();
+    window.addEventListener("resize", updateMasks);
     // Animation loop
     function animate() {
         requestAnimationFrame(animate);
-        // Update background
+        // Update the background shader
         updateBackground();
-        // Render the scene
+        // Render the unified canvas
         renderer.render(scene, camera);
     }
     animate();
 }
-exports.default = addAnimation;
+exports.default = addUnifiedAnimation;
 
-},{"three":"ktPTu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./background.js":"7Mj03"}],"ktPTu":[function(require,module,exports,__globalThis) {
+},{"three":"ktPTu","../../global/background":"7Mj03","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ktPTu":[function(require,module,exports,__globalThis) {
 /**
  * @license
  * Copyright 2010-2024 Three.js Authors
@@ -41282,6 +41290,73 @@ void main() {
 
  `;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["lwskx","igcvL"], "igcvL", "parcelRequire94c2")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fL9gf":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function about() {}
+exports.default = about;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9nfro":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function work() {}
+exports.default = work;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gjwHc":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function services() {}
+exports.default = services;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"erAwr":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function career() {}
+exports.default = career;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bPqYi":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _three = require("three");
+var _backgroundJs = require("./background.js");
+function addAnimation() {
+    const containers = document.querySelectorAll(".canvas_wrap");
+    containers.forEach((container)=>{
+        const scene = new _three.Scene();
+        // Renderer
+        const renderer = new _three.WebGLRenderer({
+            alpha: true
+        }); // Set alpha for transparency
+        renderer.setSize(container.offsetWidth, container.offsetHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+        // Camera
+        const camera = new _three.OrthographicCamera(-1, 1, 1, -1, -10, 10);
+        camera.position.z = 1;
+        // Add background
+        const updateBackground = (0, _backgroundJs.createBackground)(scene);
+        // Resize function
+        function onResize() {
+            // Update renderer size
+            renderer.setSize(container.offsetWidth, container.offsetHeight);
+            // Update projection matrix
+            camera.updateProjectionMatrix();
+        }
+        // Handle window resizing
+        window.addEventListener("resize", onResize);
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            // Update background
+            updateBackground();
+            // Render the scene
+            renderer.render(scene, camera);
+        }
+        animate();
+    });
+}
+exports.default = addAnimation;
+
+},{"three":"ktPTu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./background.js":"7Mj03"}]},["lwskx","igcvL"], "igcvL", "parcelRequire94c2")
 
 //# sourceMappingURL=app.js.map
