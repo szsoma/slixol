@@ -33,6 +33,7 @@ import work from "./src/pages/work/work";
 import services from "./src/pages/services/services";
 import career from "./src/pages/career/career";
 
+
   // Function to initialize page-specific scripts
   const initializePageScripts = () => {
     const pages = [
