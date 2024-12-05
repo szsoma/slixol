@@ -41299,24 +41299,54 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>timeline);
 var _gsap = require("gsap");
 var _scrollTrigger = require("gsap/ScrollTrigger");
+var _cssplugin = require("gsap/CSSPlugin");
 function timeline() {
-    // Ensure GSAP and ScrollTrigger are loaded
-    (0, _gsap.gsap).registerPlugin((0, _scrollTrigger.ScrollTrigger));
-    // Animate the #_clip1 element
+    (0, _gsap.gsap).registerPlugin((0, _scrollTrigger.ScrollTrigger), (0, _cssplugin.CSSPlugin));
+    let track = document.querySelectorAll(".track_timeline");
+    if (!track) {
+        console.error("Error: '.track_timeline' element not found in the DOM.");
+        return;
+    }
     (0, _gsap.gsap).fromTo("#rect", {
         xPercent: -100
     }, {
         xPercent: 0,
         scrollTrigger: {
-            trigger: ".track_timeline",
+            trigger: track,
             start: "top top",
             end: "bottom bottom",
             scrub: true
         }
     });
+    // Select all .timeline_stages-item elements
+    let stages = (0, _gsap.gsap).utils.toArray(".timeline_stages-item");
+    if (stages.length === 0) {
+        console.error("Error: No .timeline_stages-item elements found.");
+        return;
+    }
+    // Calculate scroll percentages dynamically
+    let scrollSteps = 28 / (stages.length - 1); // Space each stage evenly until 75%
+    // Create ScrollTrigger animations for each stage
+    stages.forEach((stage, index)=>{
+        let startPercent = index * scrollSteps; // Start percentage for this stage
+        let endPercent = startPercent + scrollSteps; // End percentage for smooth transition
+        (0, _gsap.gsap).fromTo(stage, {
+            autoAlpha: 0.3
+        }, {
+            autoAlpha: 1,
+            duration: 0.4,
+            scrollTrigger: {
+                trigger: track,
+                start: `${startPercent}% top`,
+                end: `${endPercent}% top`,
+                scrub: false
+            }
+        });
+        index++;
+    });
 }
 
-},{"gsap":"fPSuC","gsap/ScrollTrigger":"7wnFk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fPSuC":[function(require,module,exports,__globalThis) {
+},{"gsap":"fPSuC","gsap/ScrollTrigger":"7wnFk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","gsap/CSSPlugin":"l02JQ"}],"fPSuC":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "gsap", ()=>gsapWithCSS);
