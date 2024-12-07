@@ -2,11 +2,13 @@
 import logoproof from "./logoproof";
 import addUnifiedAnimation from "./bentoInteraction";
 import timeline from "./timeline";
+import addTooltip from "./tooltips";
 
 export default function home()
 {
     logoproof();
     timeline();
+    addTooltip();
     document.addEventListener("DOMContentLoaded", () => {
         addUnifiedAnimation();
       });

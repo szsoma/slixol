@@ -39,7 +39,8 @@
     "punycode": "^2.3.1",
     "split-type": "^0.3.4",
     "swiper": "^11.1.14",
-    "three": "^0.170.0"
+    "three": "^0.170.0",
+    "tippy.js": "^6.3.7"
   },
   "@parcel/resolver-default": {
     "packageExports": true
