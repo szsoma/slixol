@@ -51,7 +51,7 @@ stages.forEach((stage, index) => {
                 trigger: track, // Use track as the trigger element
                 start: `${startPercent}% top`, // Start of animation
                 end: `${endPercent}% top`, // Smooth transition
-                scrub: false, // Immediate effect (no scrubbing)
+                scrub: .6, // Immediate effect (no scrubbing)
             },
         }
     );
