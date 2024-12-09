@@ -1,10 +1,7 @@
 import tippy from 'tippy.js';
-import 'tippy.js/dist/tippy.css'; // Import Tippy.js styles
-import 'tippy.js/themes/translucent.css';
-
+import '../../../node_modules/tippy.js/dist/tippy.css';
 
 export default function addTooltip() {
-    // Tooltip content with styled HTML
     const tooltipContent = `
     <div style="padding-bottom: 1.5rem;">
         <p style="margin: 0; font-size: 1rem;">
@@ -16,12 +13,11 @@ export default function addTooltip() {
     `;
 
     // Initialize Tippy.js on the #testimonial-1 element
-    tippy('#testimonial-1', {
+    tippy('.testimonial_heading-span', {
         content: tooltipContent,
-        allowHTML: true,
-        theme: 'slixol', 
+        allowHTML: true, // Allows HTML content
+        theme: 'slixol', // Use the default Tippy.js theme (optional, as it's default)
         placement: 'top', // Tooltip appears above the element
         animation: 'scale', // Smooth scaling animation
     });
-
 }

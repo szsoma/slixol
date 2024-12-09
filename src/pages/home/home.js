@@ -9,9 +9,6 @@ export default function home()
     logoproof();
     timeline();
     addTooltip();
-    document.addEventListener("DOMContentLoaded", () => {
-        addUnifiedAnimation();
-      });
     console.log("hello home");   // -- Check if it is okay
     // console.log(ScrollTrigger)   // -- Check if it is okay
 }

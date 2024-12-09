@@ -33013,8 +33013,8 @@ float random(vec2 p) {
 const vec3 black = vec3(0,0,0);
 const vec3 color1 = vec3(0.04,0.67,0.33);   // l turk
 const vec3 color2 = vec3(0.07,0.58,0.21);  // light-green
-const vec3 color3 = vec3(0.28,0.58,0.07);  // dark
-const vec3 color4 = vec3(0.02,0.27,0.18);  // dark pastel
+const vec3 color3 = vec3(0.04,0.67,0.33);  // dark
+const vec3 color4 = vec3(0.87,0.96,0.00);  // dark pastel
 const vec3 color5 = vec3(0.00,0.04,0.03);  // dark green
 
 void main() {
@@ -33183,9 +33183,6 @@ function home() {
     (0, _logoproofDefault.default)();
     (0, _timelineDefault.default)();
     (0, _tooltipsDefault.default)();
-    document.addEventListener("DOMContentLoaded", ()=>{
-        (0, _bentoInteractionDefault.default)();
-    });
     console.log("hello home"); // -- Check if it is okay
 // console.log(ScrollTrigger)   // -- Check if it is okay
 }
@@ -47651,10 +47648,8 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>addTooltip);
 var _tippyJs = require("tippy.js");
 var _tippyJsDefault = parcelHelpers.interopDefault(_tippyJs);
-var _tippyCss = require("tippy.js/dist/tippy.css"); // Import Tippy.js styles
-var _translucentCss = require("tippy.js/themes/translucent.css");
+var _tippyCss = require("../../../node_modules/tippy.js/dist/tippy.css");
 function addTooltip() {
-    // Tooltip content with styled HTML
     const tooltipContent = `
     <div style="padding-bottom: 1.5rem;">
         <p style="margin: 0; font-size: 1rem;">
@@ -47665,7 +47660,7 @@ function addTooltip() {
     </div>
     `;
     // Initialize Tippy.js on the #testimonial-1 element
-    (0, _tippyJsDefault.default)('#testimonial-1', {
+    (0, _tippyJsDefault.default)('.testimonial_heading-span', {
         content: tooltipContent,
         allowHTML: true,
         theme: 'slixol',
@@ -47674,7 +47669,7 @@ function addTooltip() {
     });
 }
 
-},{"tippy.js":"ccpCS","tippy.js/dist/tippy.css":"2hEyg","tippy.js/themes/translucent.css":"3Mndc","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ccpCS":[function(require,module,exports,__globalThis) {
+},{"tippy.js":"ccpCS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../node_modules/tippy.js/dist/tippy.css":"2hEyg"}],"ccpCS":[function(require,module,exports,__globalThis) {
 /**!
 * tippy.js v6.3.7
 * (c) 2017-2021 atomiks
@@ -51563,7 +51558,7 @@ var createPopper = /*#__PURE__*/ (0, _createPopperJs.popperGenerator)({
     defaultModifiers: defaultModifiers
 }); // eslint-disable-next-line import/no-unused-modules
 
-},{"./createPopper.js":"cHuNp","./modifiers/eventListeners.js":"hBKsL","./modifiers/popperOffsets.js":"6I679","./modifiers/computeStyles.js":"gDlm2","./modifiers/applyStyles.js":"4iMn4","./modifiers/offset.js":"3GKVY","./modifiers/flip.js":"fv5wq","./modifiers/preventOverflow.js":"1AMhb","./modifiers/arrow.js":"31HFW","./modifiers/hide.js":"2g4OF","./popper-lite.js":false,"./modifiers/index.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2hEyg":[function() {},{}],"3Mndc":[function() {},{}],"fL9gf":[function(require,module,exports,__globalThis) {
+},{"./createPopper.js":"cHuNp","./modifiers/eventListeners.js":"hBKsL","./modifiers/popperOffsets.js":"6I679","./modifiers/computeStyles.js":"gDlm2","./modifiers/applyStyles.js":"4iMn4","./modifiers/offset.js":"3GKVY","./modifiers/flip.js":"fv5wq","./modifiers/preventOverflow.js":"1AMhb","./modifiers/arrow.js":"31HFW","./modifiers/hide.js":"2g4OF","./popper-lite.js":false,"./modifiers/index.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2hEyg":[function() {},{}],"fL9gf":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 function about() {}

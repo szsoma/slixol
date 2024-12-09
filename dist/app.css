@@ -1,40 +1,13 @@
-.canvas_wrap canvas {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
 .tippy-box[data-theme~="slixol"] {
-  & .testimonial_tooltip {
-    width: 100%;
-    max-width: 25.5rem;
-    padding-top: var(--size--1rem);
-    padding-right: var(--size--1rem);
-    padding-bottom: var(--size--1rem);
-    padding-left: var(--size--1rem);
-    border-top-style: solid;
-    border-top-width: 1px;
-    border-top-color: var(--swatch--light-faded);
-    border-right-style: solid;
-    border-right-width: 1px;
-    border-right-color: var(--swatch--light-faded);
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-bottom-color: var(--swatch--light-faded);
-    border-left-style: solid;
-    border-left-width: 1px;
-    border-left-color: var(--swatch--light-faded);
-    border-top-left-radius: var(--size--1-25rem);
-    border-top-right-radius: var(--size--1-25rem);
-    border-bottom-left-radius: var(--size--1-25rem);
-    border-bottom-right-radius: var(--size--1-25rem);
-    backdrop-filter: blur(25px);
-    color: var(--swatch--dark);
-    background-image: linear-gradient(135deg, #ffffffb3, #fff9);
-    box-shadow: 0 5px 20px #0000000d;
-  }
+  width: 100%;
+  max-width: 25.5rem;
+  padding: var(--size--1rem);
+  border: 1px solid var(--swatch--light-faded);
+  border-radius: var(--size--1-25rem);
+  backdrop-filter: blur(25px);
+  color: var(--swatch--dark);
+  background-image: linear-gradient(135deg, #ffffffb3, #fff9);
+  box-shadow: 0 5px 20px #0000000d;
 }
 
 @font-face {
@@ -824,42 +797,5 @@ button.swiper-pagination-bullet {
   z-index: 1;
   padding: 5px 9px;
   position: relative;
-}
-
-.tippy-box[data-theme~="translucent"] {
-  background-color: #000000b3;
-}
-
-.tippy-box[data-theme~="translucent"] > .tippy-arrow {
-  width: 14px;
-  height: 14px;
-}
-
-.tippy-box[data-theme~="translucent"][data-placement^="top"] > .tippy-arrow:before {
-  border-width: 7px 7px 0;
-  border-top-color: #000000b3;
-}
-
-.tippy-box[data-theme~="translucent"][data-placement^="bottom"] > .tippy-arrow:before {
-  border-width: 0 7px 7px;
-  border-bottom-color: #000000b3;
-}
-
-.tippy-box[data-theme~="translucent"][data-placement^="left"] > .tippy-arrow:before {
-  border-width: 7px 0 7px 7px;
-  border-left-color: #000000b3;
-}
-
-.tippy-box[data-theme~="translucent"][data-placement^="right"] > .tippy-arrow:before {
-  border-width: 7px 7px 7px 0;
-  border-right-color: #000000b3;
-}
-
-.tippy-box[data-theme~="translucent"] > .tippy-backdrop {
-  background-color: #000000b3;
-}
-
-.tippy-box[data-theme~="translucent"] > .tippy-svg-arrow {
-  fill: #000000b3;
 }
 /*# sourceMappingURL=app.css.map */

@@ -27,8 +27,8 @@ float random(vec2 p) {
 const vec3 black = vec3(0,0,0);
 const vec3 color1 = vec3(0.04,0.67,0.33);   // l turk
 const vec3 color2 = vec3(0.07,0.58,0.21);  // light-green
-const vec3 color3 = vec3(0.28,0.58,0.07);  // dark
-const vec3 color4 = vec3(0.02,0.27,0.18);  // dark pastel
+const vec3 color3 = vec3(0.04,0.67,0.33);  // dark
+const vec3 color4 = vec3(0.87,0.96,0.00);  // dark pastel
 const vec3 color5 = vec3(0.00,0.04,0.03);  // dark green
 
 void main() {
