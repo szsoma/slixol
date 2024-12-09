@@ -1,4 +1,6 @@
 import Lenis from "@studio-freight/lenis"; // TODO Add lenis smooth scrolling 
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // Lenis SmoothScroll
 function initLenis() {
@@ -45,7 +47,7 @@ function initLenis() {
             });
         }
         // Uncomment this if using GSAP ScrollTrigger
-        // connectToScrollTrigger();
+        //connectToScrollTrigger();
     }
 }
 
