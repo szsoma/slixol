@@ -15,7 +15,7 @@ import "./src/styles/style.css";
 
 // Import global scripts
 import initLenis from "./src/global/lenis";
-initLenis();
+//initLenis();
 
 import nav from "./src/global/nav";
 nav();
@@ -30,7 +30,6 @@ addAnimation();
 import home from "./src/pages/home/home";
 import about from "./src/pages/about/about";
 import work from "./src/pages/work/work";
-import services from "./src/pages/services/services";
 import career from "./src/pages/career/career";
 
 
@@ -38,10 +37,7 @@ import career from "./src/pages/career/career";
   const initializePageScripts = () => {
     const pages = [
       { className: 'body--home', initFunction: home },
-      { className: 'body--about', initFunction: about },
       { className: 'body--work-t', initFunction: work },
-      { className: 'body--services', initFunction: services },
-      { className: 'body--career', initFunction: career },
     ];
 
     const body = document.querySelector('body');

@@ -4,14 +4,14 @@ import 'swiper/css/bundle';
 export default function workswiper() {
     $(".slider-main_component").each(function (index) {
         const swiper = new Swiper($(this).find(".swiper")[0], {
-          speed: 600,
+          speed: 400,
           loop: false,
           autoHeight: false,
           centeredSlides: false,
           followFinger: true,
           freeMode: false,
           slideToClickedSlide: false,
-          slidesPerView: 1,
+          slidesPerView: 'auto',
           spaceBetween: 24,
           rewind: false,
           mousewheel: {
@@ -38,6 +38,8 @@ export default function workswiper() {
               spaceBetween: 24
             }
           },
+          slideActiveClass: "is-active",
+           slideDuplicateActiveClass: "is-active",
           navigation: {
             nextEl: $(this).find(".swiper-next")[0],
             prevEl: $(this).find(".swiper-prev")[0],
