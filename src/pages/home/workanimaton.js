@@ -1,11 +1,11 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function setupScrollAnimation() {
 
   document.addEventListener("DOMContentLoaded", () => {
+    gsap.registerPlugin(ScrollTrigger);
+
     const worksItems = Array.from(document.querySelectorAll(".works_item"));
     const workTrack = document.querySelector(".works_track");
 
