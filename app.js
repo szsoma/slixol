@@ -39,7 +39,7 @@ import career from "./src/pages/career/career";
     const pages = [
       { className: 'body--home', initFunction: home },
       { className: 'body--about', initFunction: about },
-      { className: 'body--work', initFunction: work },
+      { className: 'body--work-t', initFunction: work },
       { className: 'body--services', initFunction: services },
       { className: 'body--career', initFunction: career },
     ];
