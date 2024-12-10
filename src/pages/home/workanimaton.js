@@ -23,7 +23,7 @@ export default function setupScrollAnimation() {
         gsap.timeline({
           scrollTrigger: {
             trigger: nextItem,
-            start: "top 20%", // When the next item enters the viewport
+            start: "top 30%", // When the next item enters the viewport
             end: "top top", // When the next item reaches the top
             scrub: 1,
           },

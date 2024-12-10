@@ -51622,7 +51622,7 @@ function setupScrollAnimation() {
                 (0, _gsapDefault.default).timeline({
                     scrollTrigger: {
                         trigger: nextItem,
-                        start: "top 20%",
+                        start: "top 30%",
                         end: "top top",
                         scrub: 1
                     }
