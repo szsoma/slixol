@@ -6,7 +6,7 @@ export function createBackground(scene) {
   // Uniforms
   const uniforms = {
     u_time: { value: 0 },
-    u_mouse: { value: new THREE.Vector2(0.8, 0.48) }, // Initial mouse position
+    u_mouse: { value: new THREE.Vector2(0.1, 0.6) }, // Initial mouse position
     u_resolution: {
       value: new THREE.Vector2(window.innerWidth, window.innerHeight),
     },
@@ -81,7 +81,7 @@ void main() {
 
   // Mouse tracking with lerp effect
   const lerpFactor = 0.008; // Adjust this value to change the smoothness
-  const targetMouse = new THREE.Vector2(0.8, 0.48); // Initial target position matches starting point
+  const targetMouse = new THREE.Vector2(0.1, 0.6); // Initial target position matches starting point
   const currentMouse = uniforms.u_mouse.value; // Current smoothed position
 
   window.addEventListener("mousemove", (event) => {

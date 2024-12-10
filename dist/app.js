@@ -705,8 +705,8 @@ function initLenis() {
                 lenis.raf(time * 1000);
             });
         }
-        // Uncomment this if using GSAP ScrollTrigger
-        connectToScrollTrigger();
+    // Uncomment this if using GSAP ScrollTrigger
+    // connectToScrollTrigger();
     }
 }
 exports.default = initLenis;
@@ -39240,7 +39240,7 @@ function createBackground(scene) {
             value: 0
         },
         u_mouse: {
-            value: new _three.Vector2(0.8, 0.48)
+            value: new _three.Vector2(0.1, 0.6)
         },
         u_resolution: {
             value: new _three.Vector2(window.innerWidth, window.innerHeight)
@@ -39311,7 +39311,7 @@ void main() {
     scene.add(plane);
     // Mouse tracking with lerp effect
     const lerpFactor = 0.008; // Adjust this value to change the smoothness
-    const targetMouse = new _three.Vector2(0.8, 0.48); // Initial target position matches starting point
+    const targetMouse = new _three.Vector2(0.1, 0.6); // Initial target position matches starting point
     const currentMouse = uniforms.u_mouse.value; // Current smoothed position
     window.addEventListener("mousemove", (event)=>{
         // Normalize mouse position to [-1, 1]
