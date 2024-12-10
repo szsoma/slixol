@@ -4,7 +4,6 @@ import { CSSPlugin } from "gsap/CSSPlugin";
 
 export default function timeline() {
     gsap.registerPlugin(ScrollTrigger, CSSPlugin);
-    document.addEventListener("DOMContentLoaded", () => {
 
         console.log(gsap, CSSPlugin);
 
@@ -59,5 +58,4 @@ export default function timeline() {
         );
         index++;
     });
-});
 }
