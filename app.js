@@ -28,9 +28,7 @@ addAnimation();
 
 // Import page-specific scripts
 import home from "./src/pages/home/home";
-import about from "./src/pages/about/about";
 import work from "./src/pages/work/work";
-import career from "./src/pages/career/career";
 
 
   // Function to initialize page-specific scripts
