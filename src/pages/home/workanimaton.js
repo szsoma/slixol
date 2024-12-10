@@ -23,15 +23,15 @@ export default function setupScrollAnimation() {
         gsap.timeline({
           scrollTrigger: {
             trigger: nextItem,
-            start: "top center", // When the next item enters the viewport
+            start: "top 20%", // When the next item enters the viewport
             end: "top top", // When the next item reaches the top
-            scrub: true,
+            scrub: 1,
           },
         })
           .to(item, {
-            scale: 0.8,
+            scale: 0.95,
             opacity: 0,
-            ease: "power2.out",
+            ease: "power1.inOut",
           });
       }
     });

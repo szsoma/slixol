@@ -51622,14 +51622,14 @@ function setupScrollAnimation() {
                 (0, _gsapDefault.default).timeline({
                     scrollTrigger: {
                         trigger: nextItem,
-                        start: "top center",
+                        start: "top 20%",
                         end: "top top",
-                        scrub: true
+                        scrub: 1
                     }
                 }).to(item, {
-                    scale: 0.8,
+                    scale: 0.95,
                     opacity: 0,
-                    ease: "power2.out"
+                    ease: "power1.inOut"
                 });
             }
         });
