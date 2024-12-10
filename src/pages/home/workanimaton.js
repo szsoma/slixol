@@ -2,8 +2,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function setupScrollAnimation() {
-
-  document.addEventListener("DOMContentLoaded", () => {
     gsap.registerPlugin(ScrollTrigger);
 
     const worksItems = Array.from(document.querySelectorAll(".works_item"));
@@ -35,5 +33,4 @@ export default function setupScrollAnimation() {
           });
       }
     });
-  });
 }

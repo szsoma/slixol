@@ -2,7 +2,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function footer() {
-    document.addEventListener("DOMContentLoaded", () => {
         gsap.registerPlugin(ScrollTrigger);
 
         let letters = gsap.utils.toArray(document.querySelectorAll(".logo-letter"));
@@ -21,5 +20,4 @@ export default function footer() {
                 },
             }
         );
-    });
 }
