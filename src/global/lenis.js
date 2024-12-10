@@ -47,7 +47,7 @@ function initLenis() {
             });
         }
         // Uncomment this if using GSAP ScrollTrigger
-        //connectToScrollTrigger();
+        connectToScrollTrigger();
     }
 }
 

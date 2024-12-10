@@ -705,13 +705,13 @@ function initLenis() {
                 lenis.raf(time * 1000);
             });
         }
-    // Uncomment this if using GSAP ScrollTrigger
-    //connectToScrollTrigger();
+        // Uncomment this if using GSAP ScrollTrigger
+        connectToScrollTrigger();
     }
 }
 exports.default = initLenis;
 
-},{"@studio-freight/lenis":"ggVJc","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","gsap":"fPSuC","gsap/ScrollTrigger":"7wnFk"}],"ggVJc":[function(require,module,exports,__globalThis) {
+},{"@studio-freight/lenis":"ggVJc","gsap":"fPSuC","gsap/ScrollTrigger":"7wnFk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ggVJc":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>Lenis);
@@ -39440,7 +39440,7 @@ function home() {
 // console.log(ScrollTrigger)   // -- Check if it is okay
 }
 
-},{"./logoproof":"lJs2Z","./bentoInteraction":"4kS9K","./timeline":"lOxBS","./tooltips":"dWfwM","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./workanimaton":"dcc36"}],"lJs2Z":[function(require,module,exports,__globalThis) {
+},{"./logoproof":"lJs2Z","./bentoInteraction":"4kS9K","./timeline":"lOxBS","./tooltips":"dWfwM","./workanimaton":"dcc36","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lJs2Z":[function(require,module,exports,__globalThis) {
 // import Swiper bundle with all modules installed
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -47603,47 +47603,50 @@ var _scrollTrigger = require("gsap/ScrollTrigger");
 var _cssplugin = require("gsap/CSSPlugin");
 function timeline() {
     (0, _gsap.gsap).registerPlugin((0, _scrollTrigger.ScrollTrigger), (0, _cssplugin.CSSPlugin));
-    let track = document.querySelectorAll(".track_timeline");
-    if (!track) {
-        console.error("Error: '.track_timeline' element not found in the DOM.");
-        return;
-    }
-    (0, _gsap.gsap).fromTo("#rect", {
-        xPercent: -100
-    }, {
-        xPercent: 0,
-        scrollTrigger: {
-            trigger: track,
-            start: "top top",
-            end: "bottom bottom",
-            scrub: true
+    document.addEventListener("DOMContentLoaded", ()=>{
+        console.log((0, _gsap.gsap), (0, _cssplugin.CSSPlugin));
+        let track = document.querySelectorAll(".track_timeline");
+        if (!track) {
+            console.error("Error: '.track_timeline' element not found in the DOM.");
+            return;
         }
-    });
-    // Select all .timeline_stages-item elements
-    let stages = (0, _gsap.gsap).utils.toArray(".timeline_stages-item");
-    if (stages.length === 0) {
-        console.error("Error: No .timeline_stages-item elements found.");
-        return;
-    }
-    // Calculate scroll percentages dynamically
-    let scrollSteps = 28 / (stages.length - 1); // Space each stage evenly until 75%
-    // Create ScrollTrigger animations for each stage
-    stages.forEach((stage, index)=>{
-        let startPercent = index * scrollSteps; // Start percentage for this stage
-        let endPercent = startPercent + scrollSteps; // End percentage for smooth transition
-        (0, _gsap.gsap).fromTo(stage, {
-            autoAlpha: 0.3
+        (0, _gsap.gsap).fromTo("#rect", {
+            xPercent: -100
         }, {
-            autoAlpha: 1,
-            duration: 0.4,
+            xPercent: 0,
             scrollTrigger: {
                 trigger: track,
-                start: `${startPercent}% top`,
-                end: `${endPercent}% top`,
-                scrub: .6
+                start: "top top",
+                end: "bottom bottom",
+                scrub: true
             }
         });
-        index++;
+        // Select all .timeline_stages-item elements
+        let stages = (0, _gsap.gsap).utils.toArray(".timeline_stages-item");
+        if (stages.length === 0) {
+            console.error("Error: No .timeline_stages-item elements found.");
+            return;
+        }
+        // Calculate scroll percentages dynamically
+        let scrollSteps = 28 / (stages.length - 1); // Space each stage evenly until 75%
+        // Create ScrollTrigger animations for each stage
+        stages.forEach((stage, index)=>{
+            let startPercent = index * scrollSteps; // Start percentage for this stage
+            let endPercent = startPercent + scrollSteps; // End percentage for smooth transition
+            (0, _gsap.gsap).fromTo(stage, {
+                autoAlpha: 0.3
+            }, {
+                autoAlpha: 1,
+                duration: 0.4,
+                scrollTrigger: {
+                    trigger: track,
+                    start: `${startPercent}% top`,
+                    end: `${endPercent}% top`,
+                    scrub: .6
+                }
+            });
+            index++;
+        });
     });
 }
 
@@ -47707,7 +47710,7 @@ function addTooltip() {
     });
 }
 
-},{"tippy.js":"ccpCS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","tippy.js/dist/tippy.css":"2hEyg","tippy.js/animations/scale-subtle.css":"ipSko"}],"ccpCS":[function(require,module,exports,__globalThis) {
+},{"tippy.js":"ccpCS","tippy.js/dist/tippy.css":"2hEyg","tippy.js/animations/scale-subtle.css":"ipSko","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ccpCS":[function(require,module,exports,__globalThis) {
 /**!
 * tippy.js v6.3.7
 * (c) 2017-2021 atomiks
@@ -51607,38 +51610,28 @@ var _scrollTrigger = require("gsap/ScrollTrigger");
 function setupScrollAnimation() {
     document.addEventListener("DOMContentLoaded", ()=>{
         const worksItems = Array.from(document.querySelectorAll(".works_item"));
-        const workTrack = document.querySelector(".work_track");
+        const workTrack = document.querySelector(".works_track");
         if (!worksItems.length || !workTrack) return;
         // Calculate and set the height of .work_track
         const itemHeight = worksItems[0].offsetHeight;
         const trackHeight = itemHeight * worksItems.length;
         workTrack.style.height = `${trackHeight}px`;
         worksItems.forEach((item, index)=>{
-            // Create animations for each item
             if (index < worksItems.length - 1) {
                 const nextItem = worksItems[index + 1];
                 (0, _gsapDefault.default).timeline({
                     scrollTrigger: {
                         trigger: nextItem,
-                        start: "top bottom",
+                        start: "top center",
                         end: "top top",
-                        scrub: true,
-                        markers: true
+                        scrub: true
                     }
                 }).to(item, {
                     scale: 0.8,
                     opacity: 0,
-                    ease: "power1.out"
+                    ease: "power2.out"
                 });
             }
-            // Make items sticky
-            (0, _scrollTrigger.ScrollTrigger).create({
-                trigger: item,
-                start: "top top",
-                end: `+=${window.innerHeight}`,
-                pin: true,
-                pinSpacing: false
-            });
         });
     });
 }
