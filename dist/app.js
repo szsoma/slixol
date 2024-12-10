@@ -39240,7 +39240,7 @@ function createBackground(scene) {
             value: 0
         },
         u_mouse: {
-            value: new _three.Vector2(0, 0)
+            value: new _three.Vector2(0.8, 0.48)
         },
         u_resolution: {
             value: new _three.Vector2(window.innerWidth, window.innerHeight)
@@ -39297,7 +39297,6 @@ void main() {
 
   gl_FragColor = vec4(color, 1.0);
 }
-
 `;
     // Plane geometry
     const geometry = new _three.PlaneGeometry(2, 2);
@@ -39312,7 +39311,7 @@ void main() {
     scene.add(plane);
     // Mouse tracking with lerp effect
     const lerpFactor = 0.008; // Adjust this value to change the smoothness
-    const targetMouse = new _three.Vector2(0, 0); // Target position
+    const targetMouse = new _three.Vector2(0.8, 0.48); // Initial target position matches starting point
     const currentMouse = uniforms.u_mouse.value; // Current smoothed position
     window.addEventListener("mousemove", (event)=>{
         // Normalize mouse position to [-1, 1]

@@ -6,12 +6,14 @@ export function createBackground(scene) {
   // Uniforms
   const uniforms = {
     u_time: { value: 0 },
-    u_mouse: { value: new THREE.Vector2(0, 0) }, // Initialize at (0, 0)
-    u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+    u_mouse: { value: new THREE.Vector2(0.8, 0.48) }, // Initial mouse position
+    u_resolution: {
+      value: new THREE.Vector2(window.innerWidth, window.innerHeight),
+    },
   };
 
   // Fragment Shader
-const fragmentShader = `
+  const fragmentShader = `
 uniform float u_time;
 uniform vec2 u_mouse;
 uniform vec2 u_resolution;
@@ -61,8 +63,8 @@ void main() {
 
   gl_FragColor = vec4(color, 1.0);
 }
-
 `;
+
   // Plane geometry
   const geometry = new THREE.PlaneGeometry(2, 2);
 
@@ -78,8 +80,8 @@ void main() {
   scene.add(plane);
 
   // Mouse tracking with lerp effect
-  const lerpFactor = 0.008 ; // Adjust this value to change the smoothness
-  const targetMouse = new THREE.Vector2(0, 0); // Target position
+  const lerpFactor = 0.008; // Adjust this value to change the smoothness
+  const targetMouse = new THREE.Vector2(0.8, 0.48); // Initial target position matches starting point
   const currentMouse = uniforms.u_mouse.value; // Current smoothed position
 
   window.addEventListener("mousemove", (event) => {
