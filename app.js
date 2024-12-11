@@ -15,7 +15,7 @@ import "./src/styles/style.css";
 
 // Import global scripts
 import initLenis from "./src/global/lenis";
-//initLenis();
+initLenis();
 
 import nav from "./src/global/nav";
 nav();
