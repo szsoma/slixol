@@ -47668,33 +47668,34 @@ function addTooltip() {
         M\xe1r h\xf3napok \xf3ta dolgozunk vel\xfck, \xe9n csak aj\xe1nlani tudom \u{151}ket! Rengeteg j\xf3 \xf6tlet\xfck van, amelyek seg\xedts\xe9g\xe9vel mindig egy l\xe9p\xe9ssel k\xf6zelebb ker\xfcl\xfcnk a c\xe9ljaink el\xe9r\xe9s\xe9hez. Mindenben seg\xedtenek, \xe9s nem utols\xf3 sorban szinte b\xe1rmikor el\xe9rhet\u{151}k! Nagy hangs\xfalyt fektetnek az egyedi ig\xe9nyeinkre, ami hatalmas pluszt jelent a mi szakter\xfclet\xfcnk\xf6n. Profi csapat!
         </p>
         <strong style="display: block; margin-top: 0.5rem;">Norbert Erd\xe9lyi</strong>
-        <span style="display: block; font-size: 0.9rem; color: #666;">Konsport Hungary</span>
+        <span style="display: block; font-size: 0.9rem; color: #555;">Konsport Hungary</span>
     </div>
     `;
     const tooltipContent2 = `
     <div style="padding-bottom: 1.5rem;">
         <p style="margin: 0; font-size: 1rem;">
-        M\xe1r h\xf3napok \xf3ta dolgozunk vel\xfck, \xe9n csak aj\xe1nlani tudom \u{151}ket! Rengeteg j\xf3 \xf6tlet\xfck van, amelyek seg\xedts\xe9g\xe9vel mindig egy l\xe9p\xe9ssel k\xf6zelebb ker\xfcl\xfcnk a c\xe9ljaink el\xe9r\xe9s\xe9hez. Mindenben seg\xedtenek, \xe9s nem utols\xf3 sorban szinte b\xe1rmikor el\xe9rhet\u{151}k! Nagy hangs\xfalyt fektetnek az egyedi ig\xe9nyeinkre, ami hatalmas pluszt jelent a mi szakter\xfclet\xfcnk\xf6n. Profi csapat!
+        Minden honlap elk\xe9sz\xedt\xe9se m\xe1s \xe9s m\xe1s jelleg\u{171} kih\xedv\xe1st jelent. Minden c\xe9g azt szeretn\xe9, ha az \xfczleti elk\xe9pzel\xe9se, a piacnak sz\xf3l\xf3 \xfczenetei egyedi, kreat\xedv m\xf3don lenn\xe9nek bemutatva a weboldal\xe1n kereszt\xfcl. Ebben \xe9s a prec\xedz, pontosan \xfctemezett fejleszt\u{151} munk\xe1ban teljesen megb\xedzhat\xf3 partner a slixol.
         </p>
-        <strong style="display: block; margin-top: 0.5rem;">Norbert Erd\xe9lyi</strong>
-        <span style="display: block; font-size: 0.9rem; color: #666;">Konsport Hungary</span>
+        <strong style="display: block; margin-top: 0.5rem;">G\xf6rbe Ferenc</strong>
+        <span style="display: block; font-size: 0.9rem; color: #555;">Dinoxsed</span>
     </div>
     `;
     const tooltipContent3 = `
     <div style="padding-bottom: 1.5rem;">
         <p style="margin: 0; font-size: 1rem;">
-        M\xe1r h\xf3napok \xf3ta dolgozunk vel\xfck, \xe9n csak aj\xe1nlani tudom \u{151}ket! Rengeteg j\xf3 \xf6tlet\xfck van, amelyek seg\xedts\xe9g\xe9vel mindig egy l\xe9p\xe9ssel k\xf6zelebb ker\xfcl\xfcnk a c\xe9ljaink el\xe9r\xe9s\xe9hez. Mindenben seg\xedtenek, \xe9s nem utols\xf3 sorban szinte b\xe1rmikor el\xe9rhet\u{151}k! Nagy hangs\xfalyt fektetnek az egyedi ig\xe9nyeinkre, ami hatalmas pluszt jelent a mi szakter\xfclet\xfcnk\xf6n. Profi csapat!
+         Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet
         </p>
-        <strong style="display: block; margin-top: 0.5rem;">Norbert Erd\xe9lyi</strong>
-        <span style="display: block; font-size: 0.9rem; color: #555;">Konsport Hungary</span>
+        <strong style="display: block; margin-top: 0.5rem;">John Doe</strong>
+        <span style="display: block; font-size: 0.9rem; color: #555;">Lorem ipsum</span>
     </div>
     `;
     // Initialize Tippy.js on the #testimonial-1 element
-    (0, _tippyJsDefault.default)('.testimonial_heading-span', {
+    (0, _tippyJsDefault.default)('.testimonial_heading-span.is-1', {
         content: tooltipContent,
         allowHTML: true,
         theme: 'slixol',
         placement: 'top',
+        arrow: true,
         animation: 'scale-subtle'
     });
     (0, _tippyJsDefault.default)('.testimonial_heading-span.is-2', {
@@ -47702,6 +47703,7 @@ function addTooltip() {
         allowHTML: true,
         theme: 'slixol',
         placement: 'top',
+        arrow: true,
         animation: 'scale-subtle'
     });
     (0, _tippyJsDefault.default)('.testimonial_heading-span.is-3', {
@@ -47709,6 +47711,7 @@ function addTooltip() {
         allowHTML: true,
         theme: 'slixol',
         placement: 'top',
+        arrow: true,
         animation: 'scale-subtle'
     });
 }
