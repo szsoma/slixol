@@ -6,12 +6,26 @@ export default function setupScrollAnimation() {
 
     const worksItems = Array.from(document.querySelectorAll(".works_item"));
     const workTrack = document.querySelector(".works_track");
+    let progress = document.querySelectorAll(".works_inner");
+
+    gsap.fromTo(progress,
+      {yPercent: -100 },
+      {
+          yPercent: 0,
+          scrollTrigger: {
+              trigger: workTrack,
+              start: "5% top", 
+              end: "bottom 20%",
+              scrub: 1
+          }
+      }
+  )
 
     if (!worksItems.length || !workTrack) return;
 
     // Calculate and set the height of .work_track
     const itemHeight = worksItems[0].offsetHeight;
-    const trackHeight = itemHeight * worksItems.length;
+    const trackHeight = (itemHeight * worksItems.length)+400;
     workTrack.style.height = `${trackHeight}px`;
 
     worksItems.forEach((item, index) => {

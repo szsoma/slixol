@@ -5,6 +5,7 @@ import 'tippy.js/animations/scale-subtle.css';
 export default function addTooltip() {
     const tooltipContent = `
     <div style="padding-bottom: 1.5rem;">
+        <div class="tooltip_top-x"><img class="tooltip_x-img" src="https://cdn.prod.website-files.com/674778b79a8880f2fa64ca51/67657cfc2e0e9b047559200a_x.svg"/></div>
         <p style="margin: 0; font-size: 1rem;">
         Már hónapok óta dolgozunk velük, én csak ajánlani tudom őket! Rengeteg jó ötletük van, amelyek segítségével mindig egy lépéssel közelebb kerülünk a céljaink eléréséhez. Mindenben segítenek, és nem utolsó sorban szinte bármikor elérhetők! Nagy hangsúlyt fektetnek az egyedi igényeinkre, ami hatalmas pluszt jelent a mi szakterületünkön. Profi csapat!
         </p>
@@ -15,6 +16,7 @@ export default function addTooltip() {
 
     const tooltipContent2 = `
     <div style="padding-bottom: 1.5rem;">
+        <div class="tooltip_top-x"><img class="tooltip_x-img" src="https://cdn.prod.website-files.com/674778b79a8880f2fa64ca51/67657cfc2e0e9b047559200a_x.svg"/></div>
         <p style="margin: 0; font-size: 1rem;">
         Minden honlap elkészítése más és más jellegű kihívást jelent. Minden cég azt szeretné, ha az üzleti elképzelése, a piacnak szóló üzenetei egyedi, kreatív módon lennének bemutatva a weboldalán keresztül. Ebben és a precíz, pontosan ütemezett fejlesztő munkában teljesen megbízható partner a slixol.
         </p>
@@ -24,6 +26,7 @@ export default function addTooltip() {
     `;
     const tooltipContent3 = `
     <div style="padding-bottom: 1.5rem;">
+        <div class="tooltip_top-x"><img class="tooltip_x-img" src="https://cdn.prod.website-files.com/674778b79a8880f2fa64ca51/67657cfc2e0e9b047559200a_x.svg"/></div>
         <p style="margin: 0; font-size: 1rem;">
          Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet
         </p>
@@ -36,6 +39,7 @@ export default function addTooltip() {
     tippy('.testimonial_heading-span.is-1', {
         content: tooltipContent,
         allowHTML: true,
+        trigger: 'click',
         theme: 'slixol', 
         placement: 'top',
         arrow: true,
@@ -44,7 +48,8 @@ export default function addTooltip() {
     tippy('.testimonial_heading-span.is-2', {
         content: tooltipContent2,
         allowHTML: true,
-        theme: 'slixol', 
+        theme: 'slixol',
+        trigger: 'click',
         placement: 'top', 
         arrow: true,
         animation:'scale-subtle'
@@ -52,7 +57,8 @@ export default function addTooltip() {
     tippy('.testimonial_heading-span.is-3', {
         content: tooltipContent3,
         allowHTML: true,
-        theme: 'slixol', 
+        theme: 'slixol',
+        trigger: 'click', 
         placement: 'top',
         arrow: true,
         animation:'scale-subtle'

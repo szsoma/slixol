@@ -37,14 +37,14 @@ void main() {
   vec2 seed = v_uv * 1.5 * (u_mouse + 0.4 * (length(u_mouse) + 0.54));
   float n = cnoise21(seed) + length(u_mouse) * 1.1;
 
-  float ml = pow(length(u_mouse), 3.5) * 1.15;
+  float ml = pow(length(u_mouse), 3.5) * 1.2;
 
   // Reduced range for color1
-  float n1 = smoothstep(0.05, 0.1, n); // Smaller range for color1
+  float n1 = smoothstep(0.04, 0.5, n); // Smaller range for color1
   vec3 color = mix(black, color1, n1);
 
   // Extended range for color2
-  float n2 = smoothstep(0.1 + ml, 0.25 + ml, n); // Bigger range for color2
+  float n2 = smoothstep(0.1 + ml, 0.2 + ml, n); // Bigger range for color2
   color = mix(color, color2, n2);
 
   // Extended range for color3

@@ -39275,14 +39275,14 @@ void main() {
   vec2 seed = v_uv * 1.5 * (u_mouse + 0.4 * (length(u_mouse) + 0.54));
   float n = cnoise21(seed) + length(u_mouse) * 1.1;
 
-  float ml = pow(length(u_mouse), 3.5) * 1.15;
+  float ml = pow(length(u_mouse), 3.5) * 1.2;
 
   // Reduced range for color1
-  float n1 = smoothstep(0.05, 0.1, n); // Smaller range for color1
+  float n1 = smoothstep(0.04, 0.5, n); // Smaller range for color1
   vec3 color = mix(black, color1, n1);
 
   // Extended range for color2
-  float n2 = smoothstep(0.1 + ml, 0.25 + ml, n); // Bigger range for color2
+  float n2 = smoothstep(0.1 + ml, 0.2 + ml, n); // Bigger range for color2
   color = mix(color, color2, n2);
 
   // Extended range for color3
@@ -47606,50 +47606,47 @@ var _scrollTrigger = require("gsap/ScrollTrigger");
 var _cssplugin = require("gsap/CSSPlugin");
 function timeline() {
     (0, _gsap.gsap).registerPlugin((0, _scrollTrigger.ScrollTrigger), (0, _cssplugin.CSSPlugin));
-    document.addEventListener("DOMContentLoaded", ()=>{
-        console.log((0, _gsap.gsap), (0, _cssplugin.CSSPlugin));
-        let track = document.querySelectorAll(".track_timeline");
-        if (!track) {
-            console.error("Error: '.track_timeline' element not found in the DOM.");
-            return;
+    let track = document.querySelectorAll(".track_timeline");
+    if (!track) {
+        console.error("Error: '.track_timeline' element not found in the DOM.");
+        return;
+    }
+    (0, _gsap.gsap).fromTo("#rect", {
+        xPercent: -100
+    }, {
+        xPercent: 0,
+        scrollTrigger: {
+            trigger: track,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: true
         }
-        (0, _gsap.gsap).fromTo("#rect", {
-            xPercent: -100
+    });
+    // Select all .timeline_stages-item elements
+    let stages = (0, _gsap.gsap).utils.toArray(".timeline_stages-item");
+    if (stages.length === 0) {
+        console.error("Error: No .timeline_stages-item elements found.");
+        return;
+    }
+    // Calculate scroll percentages dynamically
+    let scrollSteps = 28 / (stages.length - 1); // Space each stage evenly until 75%
+    // Create ScrollTrigger animations for each stage
+    stages.forEach((stage, index)=>{
+        let startPercent = index * scrollSteps; // Start percentage for this stage
+        let endPercent = startPercent + scrollSteps; // End percentage for smooth transition
+        (0, _gsap.gsap).fromTo(stage, {
+            autoAlpha: 0.3
         }, {
-            xPercent: 0,
+            autoAlpha: 1,
+            duration: 0.4,
             scrollTrigger: {
                 trigger: track,
-                start: "top top",
-                end: "bottom bottom",
-                scrub: true
+                start: `${startPercent}% top`,
+                end: `${endPercent}% top`,
+                scrub: .6
             }
         });
-        // Select all .timeline_stages-item elements
-        let stages = (0, _gsap.gsap).utils.toArray(".timeline_stages-item");
-        if (stages.length === 0) {
-            console.error("Error: No .timeline_stages-item elements found.");
-            return;
-        }
-        // Calculate scroll percentages dynamically
-        let scrollSteps = 28 / (stages.length - 1); // Space each stage evenly until 75%
-        // Create ScrollTrigger animations for each stage
-        stages.forEach((stage, index)=>{
-            let startPercent = index * scrollSteps; // Start percentage for this stage
-            let endPercent = startPercent + scrollSteps; // End percentage for smooth transition
-            (0, _gsap.gsap).fromTo(stage, {
-                autoAlpha: 0.3
-            }, {
-                autoAlpha: 1,
-                duration: 0.4,
-                scrollTrigger: {
-                    trigger: track,
-                    start: `${startPercent}% top`,
-                    end: `${endPercent}% top`,
-                    scrub: .6
-                }
-            });
-            index++;
-        });
+        index++;
     });
 }
 
@@ -47664,6 +47661,7 @@ var _scaleSubtleCss = require("tippy.js/animations/scale-subtle.css");
 function addTooltip() {
     const tooltipContent = `
     <div style="padding-bottom: 1.5rem;">
+        <div class="tooltip_top-x"><img class="tooltip_x-img" src="https://cdn.prod.website-files.com/674778b79a8880f2fa64ca51/67657cfc2e0e9b047559200a_x.svg"/></div>
         <p style="margin: 0; font-size: 1rem;">
         M\xe1r h\xf3napok \xf3ta dolgozunk vel\xfck, \xe9n csak aj\xe1nlani tudom \u{151}ket! Rengeteg j\xf3 \xf6tlet\xfck van, amelyek seg\xedts\xe9g\xe9vel mindig egy l\xe9p\xe9ssel k\xf6zelebb ker\xfcl\xfcnk a c\xe9ljaink el\xe9r\xe9s\xe9hez. Mindenben seg\xedtenek, \xe9s nem utols\xf3 sorban szinte b\xe1rmikor el\xe9rhet\u{151}k! Nagy hangs\xfalyt fektetnek az egyedi ig\xe9nyeinkre, ami hatalmas pluszt jelent a mi szakter\xfclet\xfcnk\xf6n. Profi csapat!
         </p>
@@ -47673,6 +47671,7 @@ function addTooltip() {
     `;
     const tooltipContent2 = `
     <div style="padding-bottom: 1.5rem;">
+        <div class="tooltip_top-x"><img class="tooltip_x-img" src="https://cdn.prod.website-files.com/674778b79a8880f2fa64ca51/67657cfc2e0e9b047559200a_x.svg"/></div>
         <p style="margin: 0; font-size: 1rem;">
         Minden honlap elk\xe9sz\xedt\xe9se m\xe1s \xe9s m\xe1s jelleg\u{171} kih\xedv\xe1st jelent. Minden c\xe9g azt szeretn\xe9, ha az \xfczleti elk\xe9pzel\xe9se, a piacnak sz\xf3l\xf3 \xfczenetei egyedi, kreat\xedv m\xf3don lenn\xe9nek bemutatva a weboldal\xe1n kereszt\xfcl. Ebben \xe9s a prec\xedz, pontosan \xfctemezett fejleszt\u{151} munk\xe1ban teljesen megb\xedzhat\xf3 partner a slixol.
         </p>
@@ -47682,6 +47681,7 @@ function addTooltip() {
     `;
     const tooltipContent3 = `
     <div style="padding-bottom: 1.5rem;">
+        <div class="tooltip_top-x"><img class="tooltip_x-img" src="https://cdn.prod.website-files.com/674778b79a8880f2fa64ca51/67657cfc2e0e9b047559200a_x.svg"/></div>
         <p style="margin: 0; font-size: 1rem;">
          Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet
         </p>
@@ -47693,6 +47693,7 @@ function addTooltip() {
     (0, _tippyJsDefault.default)('.testimonial_heading-span.is-1', {
         content: tooltipContent,
         allowHTML: true,
+        trigger: 'click',
         theme: 'slixol',
         placement: 'top',
         arrow: true,
@@ -47702,6 +47703,7 @@ function addTooltip() {
         content: tooltipContent2,
         allowHTML: true,
         theme: 'slixol',
+        trigger: 'click',
         placement: 'top',
         arrow: true,
         animation: 'scale-subtle'
@@ -47710,6 +47712,7 @@ function addTooltip() {
         content: tooltipContent3,
         allowHTML: true,
         theme: 'slixol',
+        trigger: 'click',
         placement: 'top',
         arrow: true,
         animation: 'scale-subtle'
@@ -51613,32 +51616,42 @@ var _gsap = require("gsap");
 var _gsapDefault = parcelHelpers.interopDefault(_gsap);
 var _scrollTrigger = require("gsap/ScrollTrigger");
 function setupScrollAnimation() {
-    document.addEventListener("DOMContentLoaded", ()=>{
-        (0, _gsapDefault.default).registerPlugin((0, _scrollTrigger.ScrollTrigger));
-        const worksItems = Array.from(document.querySelectorAll(".works_item"));
-        const workTrack = document.querySelector(".works_track");
-        if (!worksItems.length || !workTrack) return;
-        // Calculate and set the height of .work_track
-        const itemHeight = worksItems[0].offsetHeight;
-        const trackHeight = itemHeight * worksItems.length;
-        workTrack.style.height = `${trackHeight}px`;
-        worksItems.forEach((item, index)=>{
-            if (index < worksItems.length - 1) {
-                const nextItem = worksItems[index + 1];
-                (0, _gsapDefault.default).timeline({
-                    scrollTrigger: {
-                        trigger: nextItem,
-                        start: "top 80%",
-                        end: "top top",
-                        scrub: 1
-                    }
-                }).to(item, {
-                    scale: 0.95,
-                    opacity: 0,
-                    ease: "power1.inOut"
-                });
-            }
-        });
+    (0, _gsapDefault.default).registerPlugin((0, _scrollTrigger.ScrollTrigger));
+    const worksItems = Array.from(document.querySelectorAll(".works_item"));
+    const workTrack = document.querySelector(".works_track");
+    let progress = document.querySelectorAll(".works_inner");
+    (0, _gsapDefault.default).fromTo(progress, {
+        yPercent: -100
+    }, {
+        yPercent: 0,
+        scrollTrigger: {
+            trigger: workTrack,
+            start: "5% top",
+            end: "bottom 20%",
+            scrub: 1
+        }
+    });
+    if (!worksItems.length || !workTrack) return;
+    // Calculate and set the height of .work_track
+    const itemHeight = worksItems[0].offsetHeight;
+    const trackHeight = itemHeight * worksItems.length + 400;
+    workTrack.style.height = `${trackHeight}px`;
+    worksItems.forEach((item, index)=>{
+        if (index < worksItems.length - 1) {
+            const nextItem = worksItems[index + 1];
+            (0, _gsapDefault.default).timeline({
+                scrollTrigger: {
+                    trigger: nextItem,
+                    start: "top 80%",
+                    end: "top top",
+                    scrub: 1
+                }
+            }).to(item, {
+                scale: 0.95,
+                opacity: 0,
+                ease: "power1.inOut"
+            });
+        }
     });
 }
 

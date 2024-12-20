@@ -16,11 +16,11 @@ export default function timeline() {
     {
         xPercent: 0, 
         scrollTrigger: {
-        trigger: track,
-        start: "top top", // Start animation when '.timeline_track' reaches the top
-        end: "bottom bottom", // End animation when '.timeline_track' exits the viewport
-        scrub: true
-        },
+            trigger: track,
+            start: "top top", // Start animation when '.timeline_track' reaches the top
+            end: "bottom bottom", // End animation when '.timeline_track' exits the viewport
+            scrub: true
+        }
     }
     );
     
