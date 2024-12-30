@@ -47604,8 +47604,8 @@ function timeline() {
         index++;
     });
     // Mobile version ScrollTrigger animation for brand stages
-    if (window.matchMedia("(max-width: 1024px)").matches) {
-        const brandStagesMobile = document.querySelectorAll(".works_scrollbar-stage_timeline");
+    if (window.matchMedia("(max-width: 768px)").matches) {
+        const brandStagesMobile = document.querySelectorAll(".works_scrollbar-stage_brand");
         // Initially hide all brand stages
         (0, _gsap.gsap).set(brandStagesMobile, {
             autoAlpha: 0
@@ -47615,8 +47615,8 @@ function timeline() {
             stagger: 0.2,
             scrollTrigger: {
                 trigger: track,
-                start: "top bottom",
-                end: "bottom bottom",
+                start: "30% bottom",
+                end: "bottom center",
                 scrub: true
             }
         });
@@ -51592,30 +51592,30 @@ function setupScrollAnimation() {
     (0, _gsapDefault.default).registerPlugin((0, _scrollTrigger.ScrollTrigger));
     const worksItems = Array.from(document.querySelectorAll(".works_item"));
     const workTrack = document.querySelector(".works_track");
-    if (window.matchMedia("(min-width: 768px)").matches) {
-        // Select all brand stages
-        const brandStages = document.querySelectorAll(".works_scrollbar-stage.is-brand");
-        // Initially hide all brand stages
-        (0, _gsapDefault.default).set(brandStages, {
-            autoAlpha: 0
-        });
-        // GSAP animation
-        (0, _gsapDefault.default).to(brandStages, {
-            autoAlpha: 1,
-            stagger: 0.2,
-            scrollTrigger: {
-                trigger: workTrack,
-                start: "top top",
-                end: "bottom bottom",
-                scrub: true
-            }
-        });
-    }
-    if (!worksItems.length || !workTrack) return;
     // Calculate and set the height of .work_track
     const itemHeight = worksItems[0].offsetHeight;
-    const trackHeight = itemHeight * worksItems.length;
+    let trackHeight = itemHeight * worksItems.length;
+    if (window.matchMedia("(max-width: 768px)").matches) trackHeight += 400;
     workTrack.style.height = `${trackHeight}px`;
+    // Define a media query for tablet and larger screens
+    // Select all brand stages
+    const brandStages = document.querySelectorAll(".works_scrollbar-stage_timeline");
+    // Initially hide all brand stages
+    (0, _gsapDefault.default).set(brandStages, {
+        autoAlpha: 0
+    });
+    // GSAP animation
+    (0, _gsapDefault.default).to(brandStages, {
+        autoAlpha: 1,
+        stagger: 0.1,
+        scrollTrigger: {
+            trigger: workTrack,
+            start: "top top",
+            end: "bottom top",
+            scrub: true
+        }
+    });
+    if (!worksItems.length || !workTrack) return;
     worksItems.forEach((item, index)=>{
         if (index < worksItems.length - 1) {
             const nextItem = worksItems[index + 1];

@@ -7,33 +7,36 @@ export default function setupScrollAnimation() {
     const worksItems = Array.from(document.querySelectorAll(".works_item"));
     const workTrack = document.querySelector(".works_track");
 
-    if (window.matchMedia("(min-width: 768px)").matches) {
+    // Calculate and set the height of .work_track
+    const itemHeight = worksItems[0].offsetHeight;
+    let trackHeight = (itemHeight * worksItems.length);
+    if (window.matchMedia("(max-width: 768px)").matches) {
+      trackHeight+=400;
+    }
+    workTrack.style.height = `${trackHeight}px`;
+
+    // Define a media query for tablet and larger screens
+
       // Select all brand stages
-      const brandStages = document.querySelectorAll(".works_scrollbar-stage.is-brand");
+      const brandStages = document.querySelectorAll(".works_scrollbar-stage_timeline");
 
       // Initially hide all brand stages
       gsap.set(brandStages, { autoAlpha: 0 });
 
       // GSAP animation
       gsap.to(brandStages, {
-        autoAlpha: 1, // Reveal the element
-        stagger: 0.2, // Stagger the reveal of each element
+        autoAlpha: 1, 
+        stagger: 0.1,
         scrollTrigger: {
           trigger: workTrack,
           start: "top top", // Start when the workTrack section enters the viewport
-          end: "bottom bottom", // End when the workTrack section leaves the viewport
-          scrub: true, // Link animation progress to scroll progress
+          end: "bottom top", // End when the workTrack section leaves the viewport
+          scrub: true,
         },
       });
-    }
 
 
     if (!worksItems.length || !workTrack) return;
-
-    // Calculate and set the height of .work_track
-    const itemHeight = worksItems[0].offsetHeight;
-    const trackHeight = (itemHeight * worksItems.length);
-    workTrack.style.height = `${trackHeight}px`;
 
     worksItems.forEach((item, index) => {
       if (index < worksItems.length - 1) {
