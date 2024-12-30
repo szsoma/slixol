@@ -599,7 +599,6 @@ var _styleCss = require("./src/styles/style.css");
 // Import global scripts
 var _lenis = require("./src/global/lenis");
 var _lenisDefault = parcelHelpers.interopDefault(_lenis);
-//initLenis();
 var _nav = require("./src/global/nav");
 var _navDefault = parcelHelpers.interopDefault(_nav);
 var _footer = require("./src/global/footer");
@@ -612,9 +611,20 @@ var _homeDefault = parcelHelpers.interopDefault(_home);
 var _work = require("./src/pages/work/work");
 var _workDefault = parcelHelpers.interopDefault(_work);
 const parceled = true;
+(0, _lenisDefault.default)();
 (0, _navDefault.default)();
 (0, _footerDefault.default)();
 (0, _mainDefault.default)();
+var options = {
+    animate: true,
+    patternWidth: 100,
+    patternHeight: 100,
+    grainOpacity: 0.06,
+    grainDensity: .6,
+    grainWidth: 1,
+    grainHeight: 1
+};
+grained("#grain", options);
 // Function to initialize page-specific scripts
 const initializePageScripts = ()=>{
     const pages = [
@@ -7319,14 +7329,28 @@ _getGSAP() && gsap.registerPlugin(Observer);
 // jQuery test
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _gsap = require("gsap");
+var _gsapDefault = parcelHelpers.interopDefault(_gsap);
+var _scrollTrigger = require("gsap/ScrollTrigger");
 function nav() {
-    $('.nav_description').on('click', function() {
-        $(this).toggleClass('is-test');
+    (0, _gsapDefault.default).registerPlugin((0, _scrollTrigger.ScrollTrigger));
+    // Move .nav_component on entering and leaving .works_section
+    (0, _gsapDefault.default).fromTo(".nav_component", {
+        y: "0%"
+    }, {
+        y: "-150%",
+        scrollTrigger: {
+            trigger: ".works_section",
+            start: "top top",
+            end: "bottom top",
+            toggleActions: "play reverse play reverse",
+            duration: 0.2
+        }
     });
 }
 exports.default = nav;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3EEbG":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","gsap":"fPSuC","gsap/ScrollTrigger":"7wnFk"}],"3EEbG":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>footer);
@@ -39265,38 +39289,35 @@ float random(vec2 p) {
 }
 
 const vec3 black = vec3(0,0,0);
-const vec3 color1 = vec3(0.04,0.67,0.33);   // l turk
-const vec3 color2 = vec3(0.07,0.58,0.21);  // light-green
-const vec3 color3 = vec3(0.04,0.67,0.33);  // dark
-const vec3 color4 = vec3(0.87,0.96,0.00);  // dark pastel
-const vec3 color5 = vec3(0.00,0.04,0.03);  // dark green
+const vec3 color1 = vec3(0.04,0.67,0.33);  // 
+const vec3 color2 = vec3(0.07,0.58,0.21);  // 
+const vec3 color3 = vec3(0.04,0.67,0.33);  // 
+const vec3 color4 = vec3(0.87,0.96,0.00);  // 
+const vec3 color5 = vec3(0.00,0.04,0.03);  // 
 
 void main() {
-  vec2 seed = v_uv * 1.5 * (u_mouse + 0.4 * (length(u_mouse) + 0.54));
-  float n = cnoise21(seed) + length(u_mouse) * 1.1;
+  vec2 seed = v_uv * 1.6 * (u_mouse + 0.4 * (length(u_mouse) + 0.54));
+  float n = cnoise21(seed) + length(u_mouse) * 1.2;
 
-  float ml = pow(length(u_mouse), 3.5) * 1.2;
+  float ml = pow(length(u_mouse), 3.5) * 1.32;
 
-  // Reduced range for color1
-  float n1 = smoothstep(0.04, 0.5, n); // Smaller range for color1
+  float n1 = smoothstep(0.0, 0.3, n);
   vec3 color = mix(black, color1, n1);
 
-  // Extended range for color2
-  float n2 = smoothstep(0.1 + ml, 0.2 + ml, n); // Bigger range for color2
+  float n2 = smoothstep(0.1 + ml, 0.36 + ml, n); 
   color = mix(color, color2, n2);
 
-  // Extended range for color3
-  float n3 = smoothstep(0.25 + ml, 0.5 + ml, n); // Bigger range for color3
+  float n3 = smoothstep(0.25 + ml, 0.6 + ml, n); 
   color = mix(color, color3, n3);
 
-  float n4 = smoothstep(0.3 + ml, 0.6 + ml, n);
+  float n4 = smoothstep(0.35 + ml, 0.7 + ml, n);
   color = mix(color, color4, n4);
 
-  float n5 = smoothstep(0.5 + ml, 0.7 + ml, n);
+  float n5 = smoothstep(0.5 + ml, 0.65 + ml, n);
   color = mix(color, color5, n5);
 
   vec2 uvrandom = v_uv;
-  uvrandom.y *= random(vec2(uvrandom.y, 0.5));
+  uvrandom.y *= random(vec2(uvrandom.y, 0.8));
   color.rgb += random(uvrandom) * 0.05;
 
   gl_FragColor = vec4(color, 1.0);
@@ -39426,24 +39447,24 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>home);
 var _logoproof = require("./logoproof");
 var _logoproofDefault = parcelHelpers.interopDefault(_logoproof);
-var _bentoInteraction = require("./bentoInteraction");
-var _bentoInteractionDefault = parcelHelpers.interopDefault(_bentoInteraction);
-var _timeline = require("./timeline");
-var _timelineDefault = parcelHelpers.interopDefault(_timeline);
 var _tooltips = require("./tooltips");
 var _tooltipsDefault = parcelHelpers.interopDefault(_tooltips);
 var _workanimaton = require("./workanimaton");
 var _workanimatonDefault = parcelHelpers.interopDefault(_workanimaton);
+var _timeline = require("./timeline");
+var _timelineDefault = parcelHelpers.interopDefault(_timeline);
+var _nav = require("../../global/nav");
+var _navDefault = parcelHelpers.interopDefault(_nav);
 function home() {
     (0, _logoproofDefault.default)();
     (0, _timelineDefault.default)();
     (0, _tooltipsDefault.default)();
     (0, _workanimatonDefault.default)();
+    (0, _navDefault.default)();
     console.log("hello home"); // -- Check if it is okay
-// console.log(ScrollTrigger)   // -- Check if it is okay
 }
 
-},{"./logoproof":"lJs2Z","./bentoInteraction":"4kS9K","./timeline":"lOxBS","./tooltips":"dWfwM","./workanimaton":"dcc36","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lJs2Z":[function(require,module,exports,__globalThis) {
+},{"./logoproof":"lJs2Z","./timeline":"lOxBS","./tooltips":"dWfwM","./workanimaton":"dcc36","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../global/nav":"9emQb"}],"lJs2Z":[function(require,module,exports,__globalThis) {
 // import Swiper bundle with all modules installed
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -47531,73 +47552,7 @@ function EffectCards(_ref) {
     });
 }
 
-},{"../shared/create-shadow.mjs":"bWkQq","../shared/effect-init.mjs":"88TTi","../shared/effect-target.mjs":"3jkAD","../shared/effect-virtual-transition-end.mjs":"dzFvU","../shared/utils.mjs":"9mU7V","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aErfw":[function() {},{}],"4kS9K":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _three = require("three");
-var _background = require("../../global/background");
-function addUnifiedAnimation() {
-    // Ensure parentContainer is a valid DOM element
-    const parentContainer = document.querySelector("body"); // Use a specific container if needed, e.g., `.layout-container`
-    if (!parentContainer) {
-        console.error("Error: Parent container not found.");
-        return;
-    }
-    const containers = document.querySelectorAll(".canvas_wrap");
-    const scene = new _three.Scene();
-    // Renderer
-    const renderer = new _three.WebGLRenderer({
-        alpha: true
-    }); // Transparent background
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    // Append the renderer canvas to the parent container
-    parentContainer.appendChild(renderer.domElement);
-    // Camera
-    const camera = new _three.OrthographicCamera(-1, 1, 1, -1, -10, 10);
-    camera.position.z = 1;
-    // Add background shader
-    const updateBackground = (0, _background.createBackground)(scene);
-    // Resize the renderer and camera when the window resizes
-    function onResize() {
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        camera.updateProjectionMatrix();
-    }
-    window.addEventListener("resize", onResize);
-    // Sync the canvas position with `.canvas_wrap` elements
-    function updateMasks() {
-        containers.forEach((container)=>{
-            const rect = container.getBoundingClientRect();
-            // Calculate clip-path in viewport coordinates
-            const x = rect.left / window.innerWidth;
-            const y = rect.top / window.innerHeight;
-            const width = rect.width / window.innerWidth;
-            const height = rect.height / window.innerHeight;
-            // Apply masking using CSS clip-path
-            container.style.clipPath = `polygon(
-          ${x * 100}% ${y * 100}%, 
-          ${(x + width) * 100}% ${y * 100}%, 
-          ${(x + width) * 100}% ${(y + height) * 100}%, 
-          ${x * 100}% ${(y + height) * 100}%
-        )`;
-        });
-    }
-    // Initial mask setup
-    updateMasks();
-    window.addEventListener("resize", updateMasks);
-    // Animation loop
-    function animate() {
-        requestAnimationFrame(animate);
-        // Update the background shader
-        updateBackground();
-        // Render the unified canvas
-        renderer.render(scene, camera);
-    }
-    animate();
-}
-exports.default = addUnifiedAnimation;
-
-},{"three":"ktPTu","../../global/background":"7Mj03","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lOxBS":[function(require,module,exports,__globalThis) {
+},{"../shared/create-shadow.mjs":"bWkQq","../shared/effect-init.mjs":"88TTi","../shared/effect-target.mjs":"3jkAD","../shared/effect-virtual-transition-end.mjs":"dzFvU","../shared/utils.mjs":"9mU7V","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aErfw":[function() {},{}],"lOxBS":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>timeline);
@@ -47617,7 +47572,7 @@ function timeline() {
         xPercent: 0,
         scrollTrigger: {
             trigger: track,
-            start: "top top",
+            start: "20% top",
             end: "bottom bottom",
             scrub: true
         }
@@ -47648,6 +47603,24 @@ function timeline() {
         });
         index++;
     });
+    // Mobile version ScrollTrigger animation for brand stages
+    if (window.matchMedia("(max-width: 1024px)").matches) {
+        const brandStagesMobile = document.querySelectorAll(".works_scrollbar-stage_timeline");
+        // Initially hide all brand stages
+        (0, _gsap.gsap).set(brandStagesMobile, {
+            autoAlpha: 0
+        });
+        (0, _gsap.gsap).to(brandStagesMobile, {
+            autoAlpha: 1,
+            stagger: 0.2,
+            scrollTrigger: {
+                trigger: track,
+                start: "top bottom",
+                end: "bottom bottom",
+                scrub: true
+            }
+        });
+    }
 }
 
 },{"gsap":"fPSuC","gsap/ScrollTrigger":"7wnFk","gsap/CSSPlugin":"l02JQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dWfwM":[function(require,module,exports,__globalThis) {
@@ -51619,22 +51592,29 @@ function setupScrollAnimation() {
     (0, _gsapDefault.default).registerPlugin((0, _scrollTrigger.ScrollTrigger));
     const worksItems = Array.from(document.querySelectorAll(".works_item"));
     const workTrack = document.querySelector(".works_track");
-    let progress = document.querySelectorAll(".works_inner");
-    (0, _gsapDefault.default).fromTo(progress, {
-        yPercent: -100
-    }, {
-        yPercent: 0,
-        scrollTrigger: {
-            trigger: workTrack,
-            start: "5% top",
-            end: "bottom 20%",
-            scrub: 1
-        }
-    });
+    if (window.matchMedia("(min-width: 768px)").matches) {
+        // Select all brand stages
+        const brandStages = document.querySelectorAll(".works_scrollbar-stage.is-brand");
+        // Initially hide all brand stages
+        (0, _gsapDefault.default).set(brandStages, {
+            autoAlpha: 0
+        });
+        // GSAP animation
+        (0, _gsapDefault.default).to(brandStages, {
+            autoAlpha: 1,
+            stagger: 0.2,
+            scrollTrigger: {
+                trigger: workTrack,
+                start: "top top",
+                end: "bottom bottom",
+                scrub: true
+            }
+        });
+    }
     if (!worksItems.length || !workTrack) return;
     // Calculate and set the height of .work_track
     const itemHeight = worksItems[0].offsetHeight;
-    const trackHeight = itemHeight * worksItems.length + 400;
+    const trackHeight = itemHeight * worksItems.length;
     workTrack.style.height = `${trackHeight}px`;
     worksItems.forEach((item, index)=>{
         if (index < worksItems.length - 1) {

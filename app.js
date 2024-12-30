@@ -30,6 +30,18 @@ addAnimation();
 import home from "./src/pages/home/home";
 import work from "./src/pages/work/work";
 
+var options = {
+  animate: true,
+  patternWidth: 100,
+  patternHeight: 100,
+  grainOpacity: 0.06,
+  grainDensity: .6,
+  grainWidth: 1,
+  grainHeight: 1
+};
+
+grained("#grain", options);
+
 
   // Function to initialize page-specific scripts
   const initializePageScripts = () => {

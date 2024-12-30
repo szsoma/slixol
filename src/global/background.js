@@ -27,38 +27,35 @@ float random(vec2 p) {
 }
 
 const vec3 black = vec3(0,0,0);
-const vec3 color1 = vec3(0.04,0.67,0.33);   // l turk
-const vec3 color2 = vec3(0.07,0.58,0.21);  // light-green
-const vec3 color3 = vec3(0.04,0.67,0.33);  // dark
-const vec3 color4 = vec3(0.87,0.96,0.00);  // dark pastel
-const vec3 color5 = vec3(0.00,0.04,0.03);  // dark green
+const vec3 color1 = vec3(0.04,0.67,0.33);  // 
+const vec3 color2 = vec3(0.07,0.58,0.21);  // 
+const vec3 color3 = vec3(0.04,0.67,0.33);  // 
+const vec3 color4 = vec3(0.87,0.96,0.00);  // 
+const vec3 color5 = vec3(0.00,0.04,0.03);  // 
 
 void main() {
-  vec2 seed = v_uv * 1.5 * (u_mouse + 0.4 * (length(u_mouse) + 0.54));
-  float n = cnoise21(seed) + length(u_mouse) * 1.1;
+  vec2 seed = v_uv * 1.6 * (u_mouse + 0.4 * (length(u_mouse) + 0.54));
+  float n = cnoise21(seed) + length(u_mouse) * 1.2;
 
-  float ml = pow(length(u_mouse), 3.5) * 1.2;
+  float ml = pow(length(u_mouse), 3.5) * 1.32;
 
-  // Reduced range for color1
-  float n1 = smoothstep(0.04, 0.5, n); // Smaller range for color1
+  float n1 = smoothstep(0.0, 0.3, n);
   vec3 color = mix(black, color1, n1);
 
-  // Extended range for color2
-  float n2 = smoothstep(0.1 + ml, 0.2 + ml, n); // Bigger range for color2
+  float n2 = smoothstep(0.1 + ml, 0.36 + ml, n); 
   color = mix(color, color2, n2);
 
-  // Extended range for color3
-  float n3 = smoothstep(0.25 + ml, 0.5 + ml, n); // Bigger range for color3
+  float n3 = smoothstep(0.25 + ml, 0.6 + ml, n); 
   color = mix(color, color3, n3);
 
-  float n4 = smoothstep(0.3 + ml, 0.6 + ml, n);
+  float n4 = smoothstep(0.35 + ml, 0.7 + ml, n);
   color = mix(color, color4, n4);
 
-  float n5 = smoothstep(0.5 + ml, 0.7 + ml, n);
+  float n5 = smoothstep(0.5 + ml, 0.65 + ml, n);
   color = mix(color, color5, n5);
 
   vec2 uvrandom = v_uv;
-  uvrandom.y *= random(vec2(uvrandom.y, 0.5));
+  uvrandom.y *= random(vec2(uvrandom.y, 0.8));
   color.rgb += random(uvrandom) * 0.05;
 
   gl_FragColor = vec4(color, 1.0);
