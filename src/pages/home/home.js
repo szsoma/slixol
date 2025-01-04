@@ -8,5 +8,4 @@ export default function home()
     timeline();
     addTooltip();
     setupScrollAnimation();
-    console.log("hello home");   // -- Check if it is okay
 }

@@ -17,11 +17,10 @@ export default function setupScrollAnimation() {
 
     const brandStages = document.querySelectorAll(".works_inner");
 
-    // Initially hide all brand stages
-    gsap.set(brandStages, { yPercent: -100});
-
     // GSAP animation
-    gsap.to(brandStages, {
+    gsap.fromTo(brandStages, 
+    { yPercent: -100 },
+      {
       yPercent: 0, 
       scrollTrigger: {
         trigger: workTrack,

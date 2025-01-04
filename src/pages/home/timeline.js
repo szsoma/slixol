@@ -17,9 +17,10 @@ export default function timeline() {
         xPercent: 0, 
         scrollTrigger: {
             trigger: track,
-            start: "20% top", // Start animation when '.timeline_track' reaches the top
+            start: "top 27%", // Start animation when '.timeline_track' reaches the top
             end: "bottom bottom", // End animation when '.timeline_track' exits the viewport
-            scrub: true
+            scrub: true,
+            once: true
         }
     }
     );
@@ -51,6 +52,7 @@ export default function timeline() {
                     start: `${startPercent}% top`, // Start of animation
                     end: `${endPercent}% top`, // Smooth transition
                     scrub: .6,
+                    once: true
                 },
             }
         );
@@ -72,6 +74,7 @@ export default function timeline() {
                 start: "30% bottom", 
                 end: "bottom center", 
                 scrub: true,
+                once: true
             },
         });
     }
