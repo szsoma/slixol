@@ -15,25 +15,21 @@ export default function setupScrollAnimation() {
     }
     workTrack.style.height = `${trackHeight}px`;
 
-    // Define a media query for tablet and larger screens
+    const brandStages = document.querySelectorAll(".works_inner");
 
-      // Select all brand stages
-      const brandStages = document.querySelectorAll(".works_scrollbar-stage_timeline");
+    // Initially hide all brand stages
+    gsap.set(brandStages, { yPercent: -100});
 
-      // Initially hide all brand stages
-      gsap.set(brandStages, { autoAlpha: 0 });
-
-      // GSAP animation
-      gsap.to(brandStages, {
-        autoAlpha: 1, 
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: workTrack,
-          start: "top top", // Start when the workTrack section enters the viewport
-          end: "bottom top", // End when the workTrack section leaves the viewport
-          scrub: true,
-        },
-      });
+    // GSAP animation
+    gsap.to(brandStages, {
+      yPercent: 0, 
+      scrollTrigger: {
+        trigger: workTrack,
+        start: "top top", // Start when the workTrack section enters the viewport
+        end: "bottom top", // End when the workTrack section leaves the viewport
+        scrub: true,
+      },
+    });
 
 
     if (!worksItems.length || !workTrack) return;

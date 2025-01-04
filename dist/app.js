@@ -615,16 +615,6 @@ const parceled = true;
 (0, _navDefault.default)();
 (0, _footerDefault.default)();
 (0, _mainDefault.default)();
-var options = {
-    animate: true,
-    patternWidth: 100,
-    patternHeight: 100,
-    grainOpacity: 0.06,
-    grainDensity: .6,
-    grainWidth: 1,
-    grainHeight: 1
-};
-grained("#grain", options);
 // Function to initialize page-specific scripts
 const initializePageScripts = ()=>{
     const pages = [
@@ -654,7 +644,7 @@ initializePageScripts(); // TODO: Import and register GSAP plugins in the releva
  // import { ScrollTrigger } from 'gsap/ScrollTrigger';
  // gsap.registerPlugin(ScrollTrigger, Flip);
 
-},{"./src/styles/style.css":"cy7Le","./src/global/lenis":"gPIwU","./src/global/nav":"9emQb","./src/global/footer":"3EEbG","./src/global/main":"bPqYi","./src/pages/home/home":"cIPEi","./src/pages/work/work":"9nfro","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cy7Le":[function() {},{}],"gPIwU":[function(require,module,exports,__globalThis) {
+},{"./src/styles/style.css":"cy7Le","./src/global/lenis":"gPIwU","./src/global/footer":"3EEbG","./src/global/main":"bPqYi","./src/pages/home/home":"cIPEi","./src/pages/work/work":"9nfro","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./src/global/nav":"9emQb"}],"cy7Le":[function() {},{}],"gPIwU":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _lenis = require("@studio-freight/lenis"); // TODO Add lenis smooth scrolling 
@@ -7325,32 +7315,7 @@ Observer.getById = function(id) {
 };
 _getGSAP() && gsap.registerPlugin(Observer);
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9emQb":[function(require,module,exports,__globalThis) {
-// jQuery test
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _gsap = require("gsap");
-var _gsapDefault = parcelHelpers.interopDefault(_gsap);
-var _scrollTrigger = require("gsap/ScrollTrigger");
-function nav() {
-    (0, _gsapDefault.default).registerPlugin((0, _scrollTrigger.ScrollTrigger));
-    // Move .nav_component on entering and leaving .works_section
-    (0, _gsapDefault.default).fromTo(".nav_component", {
-        y: "0%"
-    }, {
-        y: "-150%",
-        scrollTrigger: {
-            trigger: ".works_section",
-            start: "top top",
-            end: "bottom top",
-            toggleActions: "play reverse play reverse",
-            duration: 0.2
-        }
-    });
-}
-exports.default = nav;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","gsap":"fPSuC","gsap/ScrollTrigger":"7wnFk"}],"3EEbG":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3EEbG":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>footer);
@@ -39453,18 +39418,15 @@ var _workanimaton = require("./workanimaton");
 var _workanimatonDefault = parcelHelpers.interopDefault(_workanimaton);
 var _timeline = require("./timeline");
 var _timelineDefault = parcelHelpers.interopDefault(_timeline);
-var _nav = require("../../global/nav");
-var _navDefault = parcelHelpers.interopDefault(_nav);
 function home() {
     (0, _logoproofDefault.default)();
     (0, _timelineDefault.default)();
     (0, _tooltipsDefault.default)();
     (0, _workanimatonDefault.default)();
-    (0, _navDefault.default)();
     console.log("hello home"); // -- Check if it is okay
 }
 
-},{"./logoproof":"lJs2Z","./timeline":"lOxBS","./tooltips":"dWfwM","./workanimaton":"dcc36","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../global/nav":"9emQb"}],"lJs2Z":[function(require,module,exports,__globalThis) {
+},{"./logoproof":"lJs2Z","./timeline":"lOxBS","./tooltips":"dWfwM","./workanimaton":"dcc36","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lJs2Z":[function(require,module,exports,__globalThis) {
 // import Swiper bundle with all modules installed
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -51597,17 +51559,14 @@ function setupScrollAnimation() {
     let trackHeight = itemHeight * worksItems.length;
     if (window.matchMedia("(max-width: 768px)").matches) trackHeight += 400;
     workTrack.style.height = `${trackHeight}px`;
-    // Define a media query for tablet and larger screens
-    // Select all brand stages
-    const brandStages = document.querySelectorAll(".works_scrollbar-stage_timeline");
+    const brandStages = document.querySelectorAll(".works_inner");
     // Initially hide all brand stages
     (0, _gsapDefault.default).set(brandStages, {
-        autoAlpha: 0
+        yPercent: -100
     });
     // GSAP animation
     (0, _gsapDefault.default).to(brandStages, {
-        autoAlpha: 1,
-        stagger: 0.1,
+        yPercent: 0,
         scrollTrigger: {
             trigger: workTrack,
             start: "top top",
@@ -51700,6 +51659,32 @@ function workswiper() {
     });
 }
 
-},{"swiper/bundle":"a3TYD","swiper/css/bundle":"aErfw","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aErfw":[function() {},{}]},["lwskx","igcvL"], "igcvL", "parcelRequire94c2")
+},{"swiper/bundle":"a3TYD","swiper/css/bundle":"aErfw","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aErfw":[function() {},{}],"9emQb":[function(require,module,exports,__globalThis) {
+// jQuery test
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _gsap = require("gsap");
+var _gsapDefault = parcelHelpers.interopDefault(_gsap);
+var _scrollTrigger = require("gsap/ScrollTrigger");
+function nav() {
+    (0, _gsapDefault.default).registerPlugin((0, _scrollTrigger.ScrollTrigger));
+    let works = document.querySelector(".works_section");
+    if (works) // Move .nav_component on entering and leaving .works_section
+    (0, _gsapDefault.default).fromTo(".nav_component", {
+        y: "0%"
+    }, {
+        y: "-150%",
+        scrollTrigger: {
+            trigger: works,
+            start: "top top",
+            end: "bottom top",
+            toggleActions: "play reverse play reverse",
+            duration: 0.2
+        }
+    });
+}
+exports.default = nav;
+
+},{"gsap":"fPSuC","gsap/ScrollTrigger":"7wnFk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["lwskx","igcvL"], "igcvL", "parcelRequire94c2")
 
 //# sourceMappingURL=app.js.map
