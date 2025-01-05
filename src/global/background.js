@@ -39,10 +39,10 @@ void main() {
 
   float ml = pow(length(u_mouse), 3.5) * 1.32;
 
-  float n1 = smoothstep(0.0, 0.3, n);
+  float n1 = smoothstep(0.5, 0.8, n);
   vec3 color = mix(black, color1, n1);
 
-  float n2 = smoothstep(0.1 + ml, 0.36 + ml, n); 
+  float n2 = smoothstep(0.5 + ml, 0.7 + ml, n); 
   color = mix(color, color2, n2);
 
   float n3 = smoothstep(0.25 + ml, 0.6 + ml, n); 
@@ -51,7 +51,7 @@ void main() {
   float n4 = smoothstep(0.35 + ml, 0.7 + ml, n);
   color = mix(color, color4, n4);
 
-  float n5 = smoothstep(0.5 + ml, 0.65 + ml, n);
+  float n5 = smoothstep(0.5 + ml, 0.7 + ml, n);
   color = mix(color, color5, n5);
 
   vec2 uvrandom = v_uv;
@@ -89,7 +89,7 @@ void main() {
 
   // Update function
   function update() {
-    uniforms.u_time.value += 0.005;
+    uniforms.u_time.value += 0.004;
 
     // Smoothly interpolate current mouse position toward target
     currentMouse.x += (targetMouse.x - currentMouse.x) * lerpFactor;
