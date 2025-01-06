@@ -39301,19 +39301,29 @@ void main() {
     scene.add(plane);
     // Mouse tracking with lerp effect
     const lerpFactor = 0.008; // Adjust this value to change the smoothness
-    const targetMouse = new _three.Vector2(0.1, 0.6); // Initial target position matches starting point
+    const returnSpeed = 0.005; // Speed for returning to initial position
+    const initialMouse = new _three.Vector2(0.1, 0.6); // Initial position
+    const targetMouse = new _three.Vector2(0.1, 0.6); // Target position
     const currentMouse = uniforms.u_mouse.value; // Current smoothed position
+    let lastMouseMoveTime = Date.now();
     window.addEventListener("mousemove", (event)=>{
         // Normalize mouse position to [-1, 1]
         targetMouse.x = event.clientX / window.innerWidth * 2 - 1;
         targetMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        // Update the time of the last mouse movement
+        lastMouseMoveTime = Date.now();
     });
     // Update function
     function update() {
-        uniforms.u_time.value += 0.004;
+        uniforms.u_time.value += 0.006;
         // Smoothly interpolate current mouse position toward target
         currentMouse.x += (targetMouse.x - currentMouse.x) * lerpFactor;
         currentMouse.y += (targetMouse.y - currentMouse.y) * lerpFactor;
+        // If mouse hasn't moved for 2 seconds, slowly return to the initial position
+        if (Date.now() - lastMouseMoveTime > 2000) {
+            targetMouse.x += (initialMouse.x - targetMouse.x) * returnSpeed;
+            targetMouse.y += (initialMouse.y - targetMouse.y) * returnSpeed;
+        }
         // Update resolution (handles window resizing)
         uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
     }
