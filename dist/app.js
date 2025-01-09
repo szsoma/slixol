@@ -7349,6 +7349,8 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _three = require("three");
 var _backgroundJs = require("./background.js");
+var _gsap = require("gsap");
+var _gsapDefault = parcelHelpers.interopDefault(_gsap);
 function addAnimation() {
     const containers = document.querySelectorAll(".canvas_wrap");
     containers.forEach((container)=>{
@@ -7383,11 +7385,20 @@ function addAnimation() {
             renderer.render(scene, camera);
         }
         animate();
+        // Animate opacity of .canvas_wrap on page load
+        window.addEventListener("load", ()=>{
+            (0, _gsapDefault.default).to(".canvas_wrap", {
+                opacity: 1,
+                duration: 1,
+                delay: 0.15,
+                ease: "power1.out"
+            });
+        });
     });
 }
 exports.default = addAnimation;
 
-},{"three":"ktPTu","./background.js":"7Mj03","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ktPTu":[function(require,module,exports,__globalThis) {
+},{"three":"ktPTu","./background.js":"7Mj03","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","gsap":"fPSuC"}],"ktPTu":[function(require,module,exports,__globalThis) {
 /**
  * @license
  * Copyright 2010-2024 Three.js Authors
@@ -39266,7 +39277,7 @@ void main() {
 
   float ml = pow(length(u_mouse), 3.5) * 1.32;
 
-  float n1 = smoothstep(0.5, 0.8, n);
+  float n1 = smoothstep(0.3, 0.7, n);
   vec3 color = mix(black, color1, n1);
 
   float n2 = smoothstep(0.5 + ml, 0.7 + ml, n); 
@@ -39275,7 +39286,7 @@ void main() {
   float n3 = smoothstep(0.25 + ml, 0.6 + ml, n); 
   color = mix(color, color3, n3);
 
-  float n4 = smoothstep(0.35 + ml, 0.7 + ml, n);
+  float n4 = smoothstep(0.35 + ml, 0.6 + ml, n);
   color = mix(color, color4, n4);
 
   float n5 = smoothstep(0.5 + ml, 0.7 + ml, n);
@@ -47534,6 +47545,20 @@ function timeline() {
         console.error("Error: '.track_timeline' element not found in the DOM.");
         return;
     }
+    // Mobile version animation for brand stages
+    if (window.matchMedia("(max-width: 768px)").matches) {
+        const brandStages = document.querySelectorAll(".works_inner");
+        // GSAP animation
+        (0, _gsap.gsap).to(brandStages, {
+            y: "0",
+            scrollTrigger: {
+                trigger: track,
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+    }
     (0, _gsap.gsap).fromTo("#rect", {
         xPercent: -100
     }, {
@@ -47573,25 +47598,6 @@ function timeline() {
         });
         index++;
     });
-    // Mobile version ScrollTrigger animation for brand stages
-    if (window.matchMedia("(max-width: 768px)").matches) {
-        const brandStagesMobile = document.querySelectorAll(".works_scrollbar-stage_brand");
-        // Initially hide all brand stages
-        (0, _gsap.gsap).set(brandStagesMobile, {
-            autoAlpha: 0
-        });
-        (0, _gsap.gsap).to(brandStagesMobile, {
-            autoAlpha: 1,
-            stagger: 0.2,
-            scrollTrigger: {
-                trigger: track,
-                start: "30% bottom",
-                end: "bottom center",
-                scrub: true,
-                once: true
-            }
-        });
-    }
 }
 
 },{"gsap":"fPSuC","gsap/ScrollTrigger":"7wnFk","gsap/CSSPlugin":"l02JQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dWfwM":[function(require,module,exports,__globalThis) {

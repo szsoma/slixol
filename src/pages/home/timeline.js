@@ -11,6 +11,22 @@ export default function timeline() {
         return;
     }
 
+    // Mobile version animation for brand stages
+    if (window.matchMedia("(max-width: 768px)").matches) {
+        const brandStages = document.querySelectorAll(".works_inner");
+        // GSAP animation
+        gsap.to(brandStages, 
+        {
+        y: "0", 
+        scrollTrigger: {
+            trigger: track,
+            start: "top top", // Start when the workTrack section enters the viewport
+            end: "bottom top", // End when the workTrack section leaves the viewport
+            scrub: true,
+        },
+        });
+    }
+
     gsap.fromTo( "#rect",
     { xPercent: -100 },
     {
@@ -58,25 +74,5 @@ export default function timeline() {
         );
         index++;
     });
-
-    // Mobile version ScrollTrigger animation for brand stages
-    if (window.matchMedia("(max-width: 768px)").matches) {
-        const brandStagesMobile = document.querySelectorAll(".works_scrollbar-stage_brand");
-    
-        // Initially hide all brand stages
-        gsap.set(brandStagesMobile, { autoAlpha: 0 });
-
-        gsap.to(brandStagesMobile, {
-            autoAlpha: 1, 
-            stagger: 0.2, 
-            scrollTrigger: {
-                trigger: track,
-                start: "30% bottom", 
-                end: "bottom center", 
-                scrub: true,
-                once: true
-            },
-        });
-    }
   
 }

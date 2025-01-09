@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { createBackground } from "./background.js";
+import gsap from "gsap";
 
 function addAnimation() {
   const containers = document.querySelectorAll(".canvas_wrap");
@@ -44,6 +45,15 @@ function addAnimation() {
     }
 
     animate();
+      // Animate opacity of .canvas_wrap on page load
+    window.addEventListener("load", () => {
+      gsap.to(".canvas_wrap", {
+        opacity: 1,
+        duration: 1,
+        delay: 0.15,
+        ease: "power1.out", 
+      });
+    });
   });
 }
 
