@@ -16,7 +16,7 @@ export default function setupScrollAnimation() {
     workTrack.style.height = `${trackHeight}px`;
 
     const brandStages = document.querySelectorAll(".works_inner");
-
+    
     // GSAP animation
     gsap.fromTo(brandStages, 
     { yPercent: -100 },
